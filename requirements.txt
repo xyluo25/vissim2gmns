@@ -1,7 +1,4 @@
-geojson
 geopandas
 pandas
-setuptools
 Shapely
-Fiona
 pyufunc

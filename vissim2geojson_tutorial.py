@@ -4,13 +4,14 @@
 # Contact Info: luoxiangyong01@gmail.com
 # Author/Copyright: Mr. Xiangyong Luo
 ##############################################################
-from __future__ import absolute_import
-from vissim2geojson import vissim2wgs1984
 
-file_inpx = "./vissim_data/xl_002.inpx"
-file_fhz = "./vissim_data/xl_002_001.fhz"
-file_fzp = "./vissim_data/xl_002_001.fzp"
-file_folder = "./vissim_data"
+from __future__ import absolute_import
+import vissim2gmns as vg
+
+file_inpx = "./datasets/one_intersection - Copy/xl_002_001.inpx"
+file_fhz = "./datasets/one_intersection - Copy/xl_002_001.fhz"
+file_fzp = "./datasets/one_intersection - Copy/xl_002_001.fzp"
+file_folder = "./datasets/one_intersection - Copy/"
 
 # prepare map reference data from Vissim
 x_refmap = -9772791.018
@@ -24,6 +25,16 @@ y_col_name = "POSLAT"
 
 # using vissim folder as input path, will generate four files: inpx.geojson, fzp.geojson, fzp.csv, fhz.csv.
 # all result files will save to the same folder as the input folder.
-vissim = vissim2wgs1984(file_folder, x_refmap, y_refmap, x_refnet, y_refnet, x_col_name, y_col_name)
 
-vissim.main()
+# convert inpx file
+df_inpx, df_lines = vg.vissim_inpx(file_inpx, x_refmap, y_refmap, x_refnet, y_refnet)
+
+# convert fzp file
+df_fzp = vg.vissim_fzp(file_fzp, x_refmap, y_refmap, x_refnet, y_refnet, x_col_name, y_col_name)
+
+# convert fhz file
+df_fhz = vg.vissim_fhz(file_fhz)
+
+# Automatically convert all files (.inpx, .fzp, .fhz) in the folder
+net = vg.VISSIM2GMNS(file_folder, x_refmap, y_refmap, x_refnet, y_refnet, x_col_name, y_col_name)
+net.vissim_to_gmns()

@@ -6,7 +6,7 @@
 ##############################################################
 
 
-from vissim2geojson import vissim2geojson as v2g
+from vissim2gmns import vissim2geojson as v2g
 import pytest
 
 

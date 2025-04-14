@@ -1,0 +1,106 @@
+=================
+Quick Start Guide
+=================
+
+Quick Python Example
+====================
+
+.. note::
+    - This quick start guide assumes you have a valid inpx file and the required dependencies installed.
+
+Prepare your Input file
+~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+    :linenos:
+
+    import vissim2gmns as vg
+
+    input_dir = "datasets/one_intersection/"
+
+
+Automatically Convert .inpx, .fzp, .fhz to GMNS Format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+    :linenos:
+
+    import vissim2gmns as vg
+
+    if __name__ == "__main__":
+
+        input_dir = "datasets/one_intersection/"  # Path to your input directory
+
+        # Prepare reference values from VISSIM, you need to update these values based on your VISSIM project
+        x_refmap = 0
+        y_refmap = 0
+        x_refnet = 0
+        y_refnet = 0
+
+        net = vg.VISSIM2GMNS(input_dir, x_refmap, y_refmap, x_refnet, y_refnet)
+        net.vissim_to_gmns()
+
+Convert VISSIM inpx to GMNS Format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to convert VISSIM inpx to GMNS format, you can use the following code:
+
+.. code-block:: python
+    :linenos:
+
+    import vissim2gmns as vg
+
+    path_inpx = "datasets/one_intersection/xl_002_001.inpx"  # Path to your inpx file
+
+    # Prepare reference values from VISSIM, you need to update these values based on your VISSIM project
+    x_refmap = 0
+    y_refmap = 0
+    x_refnet = 0
+    y_refnet = 0
+
+    df_inpx = vg.vissim_inpx(path_inpx, x_refmap, y_refmap, x_refnet, y_refnet)
+
+    # Save the dataframe to csv and geojson files
+    df_inpx.to_file("inpx.geojson", driver="GeoJSON")
+    df_inpx.to_csv("inpx.csv", index=False)
+
+Convert VISSIM .fzp to GMNS Format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to convert VISSIM .fzp to GMNS format, you can use the following code:
+
+.. code-block:: python
+    :linenos:
+
+    import vissim2gmns as vg
+
+    path_fzp = "datasets/one_intersection/xl_002_001.fzp"  # Path to your fhz file
+
+    # Prepare reference values from VISSIM, you need to update these values based on your VISSIM project
+    x_refmap = 0
+    y_refmap = 0
+    x_refnet = 0
+    y_refnet = 0
+
+    df_fzp = vg.vissim_fzp(path_fzp, x_refmap, y_refmap, x_refnet, y_refnet)
+
+    # Save the dataframe to csv and geojson files
+    df_fzp.to_file("fzp.geojson", driver="GeoJSON")
+    df_fzp.to_csv("fhz.csv", index=False)
+
+Convert VISSIM .fhz to GMNS Format
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If you want to convert VISSIM .fhz to GMNS format, you can use the following code:
+
+.. code-block:: python
+    :linenos:
+
+    import vissim2gmns as vg
+
+    path_fhz = "datasets/one_intersection/xl_002_001.fhz"  # Path to your fhz file
+
+    df_fhz = vg.vissim_fhz(path_fhz)
+
+    # Save the dataframe to csv file
+    df_fhz.to_csv("fhz.csv", index=False)
