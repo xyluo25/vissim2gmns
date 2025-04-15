@@ -127,5 +127,6 @@ class VISSIM2GMNS:
                       "fhz file is a vissim output file don't need to transfer to geojson\n")
 
             else:
-                print(f"Invalid Input File or Folder: {str(i)}.")
+                # print(f"Invalid Input File or Folder: {str(i)}.")
+                continue
         return True

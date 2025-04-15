@@ -46,8 +46,8 @@ def cvt_vissim_to_wgs1984(x_vissim: float, y_vissim: float,
 
     # CorrectionFactorMercator,
     # the correction factor is required for transforming the latitude of a sphere(Mercator) to the WGS 84 ellipse.
-    # CorrectionFactorMercator = 1.001120232
-    CorrectionFactorMercator = 1.0011202320000001
+    CorrectionFactorMercator = 1.001120232
+    # CorrectionFactorMercator = 1.0011202320000001
 
     # WGS84 latitude coordinate for the reference point map.  Base map -> Network Setting -> Display
     LatitudeRefPointMap = (

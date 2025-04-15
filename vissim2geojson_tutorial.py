@@ -8,10 +8,10 @@
 from __future__ import absolute_import
 import vissim2gmns as vg
 
-file_inpx = "./datasets/one_intersection - Copy/xl_002_001.inpx"
-file_fhz = "./datasets/one_intersection - Copy/xl_002_001.fhz"
-file_fzp = "./datasets/one_intersection - Copy/xl_002_001.fzp"
-file_folder = "./datasets/one_intersection - Copy/"
+file_inpx = "./datasets/one_intersection/xl_002_001.inpx"
+file_fhz = "./datasets/one_intersection/xl_002_001.fhz"
+file_fzp = "./datasets/one_intersection/xl_002_001.fzp"
+file_folder = "./datasets/one_intersection/"
 
 # prepare map reference data from Vissim
 x_refmap = -9772791.018
@@ -22,6 +22,8 @@ y_refnet = 0
 # for covert fzp files, if you don't need to convert fzp file, leave these value to default values.
 x_col_name = "POS"
 y_col_name = "POSLAT"
+
+df_fzp_t = vg.vissim_fzp_t(file_fzp, x_refmap, y_refmap, x_refnet, y_refnet)
 
 # using vissim folder as input path, will generate four files: inpx.geojson, fzp.geojson, fzp.csv, fhz.csv.
 # all result files will save to the same folder as the input folder.
