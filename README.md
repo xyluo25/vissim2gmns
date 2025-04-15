@@ -35,6 +35,10 @@ Specifically:
    >
    > You will need to replace following numbers
 
+   > [!Warning]
+   >
+   > We have deprecated the
+
    **Reference point in map**: (-9772791.018, 5317836.791)
 
    **Reference point in network**: (0.000, 0.000)                                     you will need to replace these numbers
