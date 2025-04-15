@@ -10,7 +10,7 @@ Specifically:
 
 > [!Warning]
 >
-> We have deprecated the development of [vissim2wgs1984](https://pypi.org/project/vissim2geojson/) and the latest update have move to [vissim2gmns](https://github.com/xyluo25/vissim2gmns)
+> We have deprecated the development of [vissim2geojson](https://pypi.org/project/vissim2geojson/) and the latest update have move to [vissim2gmns](https://github.com/xyluo25/vissim2gmns)
 
 ## Need to know before using this tool
 
