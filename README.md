@@ -2,14 +2,13 @@
 
 vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization.
 
-specifically:
+Specifically:
 
 1. convert **.inpx** to .geojson and .csv files
 2. convert **.fzp** file to .geojson and .csv files.  comment: will return two files, one is geojson file and anther is csv file.
 3. convert **.fhz** file to .csv file.
 
-[!NOTE]
-We have deprecated the development of [vissim2wgs1984](https://pypi.org/project/vissim2geojson/) and the latest update have move to [vissim2gmns](https://github.com/xyluo25/vissim2gmns)
+> [!NOTE]  We have deprecated the development of [vissim2wgs1984](https://pypi.org/project/vissim2geojson/) and the latest update have move to [vissim2gmns](https://github.com/xyluo25/vissim2gmns)
 
 ## Need to know before using this tool
 
