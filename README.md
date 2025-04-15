@@ -1,6 +1,6 @@
 # vissim2gmns
 
-vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization.
+vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization and analysis.
 
 Specifically:
 
@@ -44,7 +44,9 @@ Specifically:
 ## How to use the tool
 
 1. install from pypi
+
    `pip install vissim2gmns`
+
 2. use case
 
    Sample user case at intersection
