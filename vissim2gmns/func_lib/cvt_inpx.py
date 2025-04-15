@@ -84,11 +84,11 @@ def vissim_inpx(path_vissim_inpx: str,
     line_df = gpd.GeoDataFrame({"geometry": line_series}, crs="EPSG:4326")
 
     if output_fname:
-        output_fname = Path(output_fname).with_suffix(".csv")
-        line_df.to_csv(output_fname, index=False)
+        output_fname_csv = Path(output_fname).with_suffix(Path(output_fname).suffix + ".csv")
+        line_df.to_csv(output_fname_csv, index=False)
         print(f"  :Successfully saved inpx file to csv: {output_fname}")
 
-        output_fname_geojson = Path(output_fname).with_suffix(".geojson")
+        output_fname_geojson = Path(output_fname).with_suffix(Path(output_fname).suffix + ".geojson")
         line_df.to_file(output_fname_geojson, driver="GeoJSON")
         print(f"  Successfully saved inpx file to geojson: {output_fname_geojson}")
 

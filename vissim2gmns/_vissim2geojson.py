@@ -50,7 +50,7 @@ class VISSIM2GMNS:
         assert isdir(input_dir), "The input vissim_file_path should be a folder."
 
         self._input_files = [Path(each_path) for each_path in get_filenames_by_ext(input_dir, file_ext="*")]
-        print("  :Input files: ", self.vissim_file_path)
+        print("  :Input files: ", self._input_files)
 
         self._output_dir = path2linux(os.path.join(input_dir, "output"))
         os.makedirs(self._output_dir, exist_ok=True)
@@ -105,12 +105,13 @@ class VISSIM2GMNS:
                                            self.x_col_name, self.y_col_name)
 
                 path_output = Path(path2linux(os.path.join(self._output_dir, i.name)))
-                path_output_geojson = path_output.with_suffix(".geojson")
+                path_output_geojson = path_output.with_suffix(path_output.suffix + ".geojson")
+
                 self.fzp_data.to_file(path_output_geojson, driver="GeoJSON")
 
-                path_output_csv = path_output.with_suffix(".csv")
+                path_output_csv = path_output.with_suffix(path_output.suffix + ".csv")
                 self.fzp_data.to_csv(path_output_csv, index=False)
-                print(f"Successfully Save fzp file to geojson: {self.output_filename}\n")
+                print(f"Successfully save fzp file to geojson: {self._output_dir}\n")
 
             elif i.suffix == ".fhz":
                 print("############## Begin to process fhz file! ######################\n")
@@ -118,10 +119,11 @@ class VISSIM2GMNS:
                 self.fhz_data = vissim_fhz(i)
 
                 path_output = Path(path2linux(os.path.join(self._output_dir, i.name)))
-                path_output = path_output.with_suffix(".csv")
+                path_output = path_output.with_suffix(path_output.suffix + ".csv")
+
                 self.fhz_data.to_csv(path_output, header=True, index=False, encoding="utf_8_sig")
 
-                print(f"Successfully Save fhz file to: {self.output_filename}\n",
+                print(f"Successfully save fhz file to: {self._output_dir}\n",
                       "fhz file is a vissim output file don't need to transfer to geojson\n")
 
             else:
