@@ -35,9 +35,9 @@ Specifically:
 >
 > You will need to replace following numbers
 
-   **Reference point in map**: (-9772791.018, 5317836.791)
+   **Reference point in map (x_refmap, y_refmap)**: (-9772791.018, 5317836.791)
 
-   **Reference point in network**: (0.000, 0.000)                                     you will need to replace these numbers
+   **Reference point in network (x_refnet, y_refnet)**: (0.000, 0.000)
 
    ![1655246139117](docs/image/README/1655246139117.png)
 
