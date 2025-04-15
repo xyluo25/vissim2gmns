@@ -31,13 +31,9 @@ Specifically:
 
    Every time you are using PTV Vissim, the software will generate these nubmers at Base Data -> Network settings -> Display
 
-   > [!NOTE]
-   >
-   > You will need to replace following numbers
-
-   > [!Warning]
-   >
-   > We have deprecated the
+> [!NOTE]
+>
+> You will need to replace following numbers
 
    **Reference point in map**: (-9772791.018, 5317836.791)
 
