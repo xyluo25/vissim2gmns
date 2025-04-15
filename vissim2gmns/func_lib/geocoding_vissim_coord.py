@@ -26,9 +26,16 @@ def cvt_vissim_to_wgs1984(x_vissim: float, y_vissim: float,
         y_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System).
 
     Example:
-        >>> from vissim2geojson import cvt_coordinate_from_vissim_to_wgs1842
-        >>> cvt_coordinate_from_vissim_to_wgs1842(-0.255, 39.368, -9772674.016, 5317775.409, 0, 0)
-        [-0.255, 39.368]
+        >>> from vissim2geojson import cvt_vissim_to_wgs1842
+        >>> x_refmap = -9772674.016  # You can get this value from VISSIM software.
+        >>> y_refmap = 5317775.409  # You can get this value from VISSIM software.
+        >>> x_refnet = 0  # You can get this value from VISSIM software.
+        >>> y_refnet = 0  # You can get this value from VISSIM software.
+        >>> x_vissim = -0.255  # The x coordinate in .inpx file (coordinate in VISSIM)
+        >>> y_vissim = 39.368  # The y coordinate in .inpx file (coordinate in VISSIM)
+        >>> # Convert VISSIM coordinates to WGS 1984 coordinates.
+        >>> cvt_vissim_to_wgs1842(x_vissim, y_vissim, x_refmap, y_refmap, x_refnet, y_refnet)
+        >>> # return the converted coordinate in WGS 1984, [Longitude, Latitude]
 
     Returns:
         list: the converted coordinate in WGS 1984, [Longitude, Latitude]

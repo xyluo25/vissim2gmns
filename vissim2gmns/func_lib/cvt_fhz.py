@@ -21,6 +21,7 @@ def vissim_fhz(path_vissim_fhz: str) -> pd.DataFrame:
         >>> import vissim2gmns as vg
         >>> path_vissim_fhz = "./vissim_data/xl_002_001.fhz"
         >>> df_fhz = vg.vissim_fhz(path_vissim_fhz)
+        >>> df_fhz.to_csv("vissim_fhz.csv", index=False)
 
     Returns:
         pd.DataFrame: converted pandas dataframe.

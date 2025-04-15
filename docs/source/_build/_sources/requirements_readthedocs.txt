@@ -1,0 +1,10 @@
+pyufunc>=0.3.7
+pytest
+coverage
+sphinx
+sphinx_rtd_theme
+myst-parser
+sphinx_copybutton
+shapely
+geopandas
+geojson

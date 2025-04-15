@@ -34,7 +34,14 @@ def vissim_fzp(path_vissim_fzp: str,
     Example:
         >>> import vissim2gmns as vg
         >>> path_vissim_fzp = "./vissim_data/xl_002_001.fzp"
+        >>> x_refmap = -9772674.016  # You can get this value from VISSIM software.
+        >>> y_refmap = 5317775.409  # You can get this value from VISSIM software.
+        >>> x_refnet = 0  # You can get this value from VISSIM software.
+        >>> y_refnet = 0  # You can get this value from VISSIM software.
         >>> df_fzp = vg.vissim_fzp(path_vissim_fzp, x_refmap, y_refmap, x_refnet, y_refnet)
+        >>> # Save the results to geojson and csv files.
+        >>> df_fzp.to_file("vissim_fzp.geojson", driver="GeoJSON")
+        >>> df_fzp.to_csv("vissim_fzp.csv", index=False)
 
     Returns:
         GeoDataFrame: converted geopandas dataframe.

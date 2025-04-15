@@ -1,0 +1,248 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>vissim2gmns._vissim2geojson &mdash; vissim2gmns</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+
+  
+    <link rel="shortcut icon" href="../../_static/vissim2gmns.ico"/>
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            vissim2gmns
+              <img src="../../_static/vissim2gmns.ico" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">vissim2gmns Navigation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/support.html">Citation Request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/support.html#official-links">Official Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/support.html#license">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/support.html#reference">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../pages/support.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">vissim2gmns</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">vissim2gmns._vissim2geojson</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for vissim2gmns._vissim2geojson</h1><div class="highlight"><pre>
+<span></span><span class="c1"># -*- coding:utf-8 -*-</span>
+<span class="c1">##############################################################</span>
+<span class="c1"># Created Date: Tuesday, June 14th 2022</span>
+<span class="c1"># Contact Info: luoxiangyong01@gmail.com</span>
+<span class="c1"># Author/Copyright: Mr. Xiangyong Luo</span>
+<span class="c1">##############################################################</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">os.path</span><span class="w"> </span><span class="kn">import</span> <span class="n">isdir</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyufunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">get_filenames_by_ext</span><span class="p">,</span> <span class="n">func_running_time</span><span class="p">,</span> <span class="n">path2linux</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vissim2gmns.func_lib.cvt_inpx</span><span class="w"> </span><span class="kn">import</span> <span class="n">vissim_inpx</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vissim2gmns.func_lib.cvt_fhz</span><span class="w"> </span><span class="kn">import</span> <span class="n">vissim_fhz</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">vissim2gmns.func_lib.cvt_fzp</span><span class="w"> </span><span class="kn">import</span> <span class="n">vissim_fzp</span>
+
+
+<div class="viewcode-block" id="VISSIM2GMNS">
+<a class="viewcode-back" href="../../pages/api/vissim2gmns.VISSIM2GMNS.html#vissim2gmns.VISSIM2GMNS">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">VISSIM2GMNS</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A tool to convert vissim files to geojson and csv.</span>
+
+<span class="sd">    Specifically:</span>
+
+<span class="sd">    - convert .inpx file to geopandas dataframe and csv/geojson file</span>
+<span class="sd">    - convert .fzp file to geopandas dataframe and csv/geojson file</span>
+<span class="sd">    - convert .fhz file to csv file</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        vissim_file_path (str): the folder or file path to the vissim file</span>
+<span class="sd">        x_refmap (float): coordinates of the reference point of the background map(Mercator). Defaults to -9772674.016.</span>
+<span class="sd">        y_refmap (float): coordinates of the reference point of the background map(Mercator). Defaults to 5317775.409.</span>
+<span class="sd">        x_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</span>
+<span class="sd">        y_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</span>
+<span class="sd">        x_col_name (str): the longitude column name in fzp file to convert fzp file to geojson. Defaults to &quot;POS&quot;.</span>
+<span class="sd">        y_col_name (str): the latitude column name in fzp file to convert fzp file to geojson. Defaults to &quot;POSLAT&quot;.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="VISSIM2GMNS.__init__">
+<a class="viewcode-back" href="../../pages/api/vissim2gmns.VISSIM2GMNS.html#vissim2gmns.VISSIM2GMNS.__init__">[docs]</a>
+    <span class="k">def</span><span class="w"> </span><span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span>
+                 <span class="n">input_dir</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span>
+                 <span class="n">x_refmap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9772674.016</span><span class="p">,</span>
+                 <span class="n">y_refmap</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mf">5317775.409</span><span class="p">,</span>
+                 <span class="n">x_refnet</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">y_refnet</span><span class="p">:</span> <span class="nb">float</span> <span class="o">=</span> <span class="mi">0</span><span class="p">,</span>
+                 <span class="n">x_col_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;POS&quot;</span><span class="p">,</span>
+                 <span class="n">y_col_name</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;POSLAT&quot;</span><span class="p">):</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Initialize the VISSIM2GMNS class.&quot;&quot;&quot;</span>
+
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Please check and correctly input x_refmap, y_refmap, x_refnet and y_refnet from your vissim software!&quot;</span><span class="p">)</span>
+
+        <span class="c1"># TDD: test the inputs of the vissim2geojson</span>
+        <span class="k">assert</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="nb">str</span><span class="p">),</span> <span class="s2">&quot;The input vissim_file_path should be a string.&quot;</span>
+        <span class="k">assert</span> <span class="n">isdir</span><span class="p">(</span><span class="n">input_dir</span><span class="p">),</span> <span class="s2">&quot;The input vissim_file_path should be a folder.&quot;</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_input_files</span> <span class="o">=</span> <span class="p">[</span><span class="n">Path</span><span class="p">(</span><span class="n">each_path</span><span class="p">)</span> <span class="k">for</span> <span class="n">each_path</span> <span class="ow">in</span> <span class="n">get_filenames_by_ext</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">file_ext</span><span class="o">=</span><span class="s2">&quot;*&quot;</span><span class="p">)]</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;  :Input files: &quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">vissim_file_path</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">_output_dir</span> <span class="o">=</span> <span class="n">path2linux</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="s2">&quot;output&quot;</span><span class="p">))</span>
+        <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_dir</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_refmap</span> <span class="o">=</span> <span class="n">x_refmap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_refmap</span> <span class="o">=</span> <span class="n">y_refmap</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_refnet</span> <span class="o">=</span> <span class="n">x_refnet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_refnet</span> <span class="o">=</span> <span class="n">y_refnet</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">x_col_name</span> <span class="o">=</span> <span class="n">x_col_name</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">y_col_name</span> <span class="o">=</span> <span class="n">y_col_name</span></div>
+
+
+    <span class="nd">@func_running_time</span>
+    <span class="k">def</span><span class="w"> </span><span class="nf">vissim_to_gmns</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">bool</span><span class="p">:</span>
+<span class="w">        </span><span class="sd">&quot;&quot;&quot;Convert vissim files to csv files in GMNS format.</span>
+
+<span class="sd">        1. Convert .inpx file to geopandas dataframe and save to csv file.</span>
+<span class="sd">        2. Convert .fzp file to geopandas dataframe and save to csv file.</span>
+<span class="sd">        3. Convert .fhz file to pandas dataframe and save to csv file.</span>
+
+<span class="sd">        See Also:</span>
+<span class="sd">            GMNS: General Modeling Network Specification(https://github.com/zephyr-data-specs/GMNS)</span>
+
+<span class="sd">        Example:</span>
+<span class="sd">            &gt;&gt;&gt; from vissim2gmns import VISSIM2GMNS</span>
+<span class="sd">            &gt;&gt;&gt; x_refmap = -9772674.016  # change to your own value from VISSIM</span>
+<span class="sd">            &gt;&gt;&gt; y_refmap = 5317775.409  # change to your own value from VISSIM</span>
+<span class="sd">            &gt;&gt;&gt; x_refnet = 0  # change to your own value from VISSIM</span>
+<span class="sd">            &gt;&gt;&gt; y_refnet = 0  # change to your own value from VISSIM</span>
+<span class="sd">            &gt;&gt;&gt; vissim = VISSIM2GMNS(&quot;./vissim_data&quot;, x_refmap, y_refmap, x_refnet, y_refnet)</span>
+<span class="sd">            &gt;&gt;&gt; vissim.vissim_to_gmns()</span>
+<span class="sd">            &gt;&gt;&gt; Successfully save inpx file to csv: ...</span>
+<span class="sd">            &gt;&gt;&gt; Successfully save fzp file to csv: ...</span>
+<span class="sd">            &gt;&gt;&gt; Successfully save fhz file to csv: ...</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_input_files</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">i</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.inpx&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;############## Begin to process inpx file! ######################</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="n">path_output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path2linux</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_dir</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">inpx_data</span> <span class="o">=</span> <span class="n">vissim_inpx</span><span class="p">(</span><span class="n">i</span><span class="p">,</span>
+                                             <span class="bp">self</span><span class="o">.</span><span class="n">x_refmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_refmap</span><span class="p">,</span>
+                                             <span class="bp">self</span><span class="o">.</span><span class="n">x_refnet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_refnet</span><span class="p">,</span>
+                                             <span class="n">path_output</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">i</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.fzp&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;############## Begin to process fzp file! ######################</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">fzp_data</span> <span class="o">=</span> <span class="n">vissim_fzp</span><span class="p">(</span><span class="n">i</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">x_refmap</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_refmap</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">x_refnet</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_refnet</span><span class="p">,</span>
+                                           <span class="bp">self</span><span class="o">.</span><span class="n">x_col_name</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">y_col_name</span><span class="p">)</span>
+
+                <span class="n">path_output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path2linux</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_dir</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+                <span class="n">path_output_geojson</span> <span class="o">=</span> <span class="n">path_output</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.geojson&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="n">path_output_geojson</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
+
+                <span class="n">path_output_csv</span> <span class="o">=</span> <span class="n">path_output</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_output_csv</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully Save fzp file to geojson: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_filename</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">elif</span> <span class="n">i</span><span class="o">.</span><span class="n">suffix</span> <span class="o">==</span> <span class="s2">&quot;.fhz&quot;</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;############## Begin to process fhz file! ######################</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+                <span class="bp">self</span><span class="o">.</span><span class="n">fhz_data</span> <span class="o">=</span> <span class="n">vissim_fhz</span><span class="p">(</span><span class="n">i</span><span class="p">)</span>
+
+                <span class="n">path_output</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="n">path2linux</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_output_dir</span><span class="p">,</span> <span class="n">i</span><span class="o">.</span><span class="n">name</span><span class="p">)))</span>
+                <span class="n">path_output</span> <span class="o">=</span> <span class="n">path_output</span><span class="o">.</span><span class="n">with_suffix</span><span class="p">(</span><span class="s2">&quot;.csv&quot;</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">fhz_data</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="n">path_output</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s2">&quot;utf_8_sig&quot;</span><span class="p">)</span>
+
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully Save fhz file to: </span><span class="si">{</span><span class="bp">self</span><span class="o">.</span><span class="n">output_filename</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span>
+                      <span class="s2">&quot;fhz file is a vissim output file don&#39;t need to transfer to geojson</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Invalid Input File or Folder: </span><span class="si">{</span><span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)</span><span class="si">}</span><span class="s2">.&quot;</span><span class="p">)</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022 - 2025 Xiangyong Luo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

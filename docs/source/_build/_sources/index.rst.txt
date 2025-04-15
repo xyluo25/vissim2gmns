@@ -1,0 +1,55 @@
+
+Welcome to vissim2gmns documentation!
+===================================
+
+.. image:: https://badge.fury.io/py/vissim2gmns.svg
+   :target: https://badge.fury.io/py/vissim2gmns
+
+.. image:: https://static.pepy.tech/badge/vissim2gmns
+   :target: https://pepy.tech/project/vissim2gmns
+
+.. image:: https://img.shields.io/pypi/wheel/gensim.svg
+   :target: https://pypi.org/project/vissim2gmns/
+
+.. image:: https://img.shields.io/pypi/pyversions/vissim2gmns.svg
+   :target: https://www.python.org/
+
+.. image:: https://img.shields.io/github/release-date/xyluo25/vissim2gmns.svg
+   :target: https://img.shields.io/github/release-date/xyluo25/vissim2gmns.svg
+
+.. image:: https://readthedocs.org/projects/vissim2gmns/badge/?version=latest
+   :target: https://vissim2gmns.readthedocs.io/en/latest/?badge=latest
+
+.. image:: https://img.shields.io/github/contributors/xyluo25/vissim2gmns
+   :target: https://github.com/xyluo25/vissim2gmns/graphs/contributors
+
+.. .. image:: https://zenodo.org/badge/DOI/
+..    :target:
+
+.. .. image:: https://img.shields.io/badge/License-MIT-blue.svg
+..    :target: https://opensource.org/license/mit
+
+vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization.
+
+Official Document: https://vissim2gmns.readthedocs.io/en/latest/
+
+Official GitHub: https://github.com/xyluo25/vissim2gmns
+
+.. toctree::
+   :maxdepth: 3
+   :caption: vissim2gmns Navigation
+
+   pages/_installation.rst
+   pages/quick_start.rst
+   pages/api_reference.rst
+   pages/support.rst
+   _modules/index
+
+Indices and Tables
+==================
+
+* :ref:`genindex`
+
+
+.. * :ref:`modindex`
+.. * :ref:`search`

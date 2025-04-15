@@ -29,7 +29,7 @@ logger = logging.getLogger(__name__)
 sys.setrecursionlimit(5000)
 
 # General information about the project.
-project = "utdf2gmns"  # Name of the project to document, e.g. 'utdf2gmns'
+project = "vissim2gmns"  # Name of the project to document, e.g. 'utdf2gmns'
 author = 'Xiangyong Luo'
 copyright = f'2022 - {datetime.datetime.now().year} Xiangyong Luo'
 version = "1.5.4"

@@ -15,10 +15,12 @@ from vissim2gmns.func_lib.cvt_fzp import vissim_fzp
 
 class VISSIM2GMNS:
     """A tool to convert vissim files to geojson and csv.
-    specifically:
-        convert .inpx file to geopandas dataframe and a csv file
-        convert .fzp file to geopandas dataframe and csv files
-        convert .fhz file to csv file
+
+    Specifically:
+
+    - convert .inpx file to geopandas dataframe and csv/geojson file
+    - convert .fzp file to geopandas dataframe and csv/geojson file
+    - convert .fhz file to csv file
 
     Args:
         vissim_file_path (str): the folder or file path to the vissim file

@@ -5,13 +5,19 @@
 # Author/Copyright: Mr. Xiangyong Luo
 ##############################################################
 
-
-from vissim2gmns import vissim2geojson as v2g
+from __future__ import absolute_import
+from pathlib import Path
 import pytest
+
+try:
+    import vissim2gmns as vg
+except Exception:
+    import sys
+    sys.path.append(str(Path(__file__).parent.parent))
+    import vissim2gmns as vg
 
 
 # test the inputs of the vissim2geojson
 def test_invalid_inputs():
     with pytest.raises(AssertionError, match="vissim_file_path should be a folder"):
-        v2g.vissim2wgs1984("test_data/invalid.inpx")
-
+        vg.VISSIM2GMNS("test_data/invalid.inpx")

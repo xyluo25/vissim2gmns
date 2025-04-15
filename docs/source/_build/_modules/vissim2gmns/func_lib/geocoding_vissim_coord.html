@@ -1,0 +1,183 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>vissim2gmns.func_lib.geocoding_vissim_coord &mdash; vissim2gmns</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/vissim2gmns.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            vissim2gmns
+              <img src="../../../_static/vissim2gmns.ico" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">vissim2gmns Navigation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html">Citation Request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#official-links">Official Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#license">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#reference">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">vissim2gmns</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">vissim2gmns.func_lib.geocoding_vissim_coord</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for vissim2gmns.func_lib.geocoding_vissim_coord</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">##############################################################</span>
+<span class="sd"># Created Date: Monday, April 14th 2025</span>
+<span class="sd"># Contact Info: luoxiangyong01@gmail.com</span>
+<span class="sd"># Author/Copyright: Mr. Xiangyong Luo</span>
+<span class="sd">##############################################################</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">math</span>
+
+
+<div class="viewcode-block" id="cvt_vissim_to_wgs1984">
+<a class="viewcode-back" href="../../../pages/api/vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html#vissim2gmns.func_lib.cvt_vissim_to_wgs1984">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">cvt_vissim_to_wgs1984</span><span class="p">(</span><span class="n">x_vissim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_vissim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                          <span class="n">x_refmap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
+                          <span class="n">x_refnet</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert single coordinate from VISSIM to WGS 1984.</span>
+
+<span class="sd">    Local coordinates in PTV Vissim use a cartesian coordinate system,</span>
+<span class="sd">    with a reference to a background position in Mercator coordinates.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        x_vissim (float): the x coordinate in VISSIM</span>
+<span class="sd">        y_vissim (float): the y coordinate in VISSIM</span>
+<span class="sd">        x_refmap (float): coordinates of the reference point of the background map(Mercator).</span>
+<span class="sd">        y_refmap (float): coordinates of the reference point of the background map(Mercator).</span>
+<span class="sd">        x_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System).</span>
+<span class="sd">        y_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System).</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from vissim2geojson import cvt_vissim_to_wgs1842</span>
+<span class="sd">        &gt;&gt;&gt; x_refmap = -9772674.016  # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; y_refmap = 5317775.409  # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; x_refnet = 0  # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; y_refnet = 0  # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; x_vissim = -0.255  # The x coordinate in .inpx file (coordinate in VISSIM)</span>
+<span class="sd">        &gt;&gt;&gt; y_vissim = 39.368  # The y coordinate in .inpx file (coordinate in VISSIM)</span>
+<span class="sd">        &gt;&gt;&gt; # Convert VISSIM coordinates to WGS 1984 coordinates.</span>
+<span class="sd">        &gt;&gt;&gt; cvt_vissim_to_wgs1842(x_vissim, y_vissim, x_refmap, y_refmap, x_refnet, y_refnet)</span>
+<span class="sd">        &gt;&gt;&gt; # return the converted coordinate in WGS 1984, [Longitude, Latitude]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        list: the converted coordinate in WGS 1984, [Longitude, Latitude]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">Pi</span> <span class="o">=</span> <span class="mf">3.14159265358979</span>  <span class="c1"># vissim system</span>
+    <span class="n">Pi_this</span> <span class="o">=</span> <span class="mf">3.14159265358979323846264338</span>  <span class="c1"># our detailed pi</span>
+    <span class="n">EarthRadius</span> <span class="o">=</span> <span class="mi">6378137</span>  <span class="c1"># vissim system earth radius</span>
+
+    <span class="c1"># CorrectionFactorMercator,</span>
+    <span class="c1"># the correction factor is required for transforming the latitude of a sphere(Mercator) to the WGS 84 ellipse.</span>
+    <span class="c1"># CorrectionFactorMercator = 1.001120232</span>
+    <span class="n">CorrectionFactorMercator</span> <span class="o">=</span> <span class="mf">1.0011202320000001</span>
+
+    <span class="c1"># WGS84 latitude coordinate for the reference point map.  Base map -&gt; Network Setting -&gt; Display</span>
+    <span class="n">LatitudeRefPointMap</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">CorrectionFactorMercator</span> <span class="o">*</span> <span class="n">y_refmap</span> <span class="o">/</span> <span class="n">EarthRadius</span><span class="p">))</span> <span class="o">-</span> <span class="n">Pi_this</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Pi_this</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+
+    <span class="n">LocalScale</span> <span class="o">=</span> <span class="mi">1</span> <span class="o">/</span> <span class="n">math</span><span class="o">.</span><span class="n">cos</span><span class="p">(</span><span class="n">LatitudeRefPointMap</span> <span class="o">*</span> <span class="n">Pi_this</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+
+    <span class="c1"># MercatorXFront  #Mercator coordinate X of the front of the vehicle</span>
+    <span class="n">MercatorX</span> <span class="o">=</span> <span class="p">(</span><span class="n">x_vissim</span> <span class="o">-</span> <span class="n">x_refnet</span><span class="p">)</span> <span class="o">*</span> <span class="n">LocalScale</span> <span class="o">+</span> <span class="n">x_refmap</span>
+    <span class="n">MercatorY</span> <span class="o">=</span> <span class="p">(</span><span class="n">y_vissim</span> <span class="o">-</span> <span class="n">y_refnet</span><span class="p">)</span> <span class="o">*</span> <span class="n">LocalScale</span> <span class="o">+</span> <span class="n">y_refmap</span>
+
+    <span class="n">a_cor</span> <span class="o">=</span> <span class="n">CorrectionFactorMercator</span>
+    <span class="n">r</span> <span class="o">=</span> <span class="n">EarthRadius</span>
+    <span class="n">Longitude</span> <span class="o">=</span> <span class="n">a_cor</span> <span class="o">*</span> <span class="n">MercatorX</span> <span class="o">/</span> <span class="p">(</span><span class="n">Pi</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+    <span class="n">Latitude</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">CorrectionFactorMercator</span> <span class="o">*</span> <span class="n">MercatorY</span> <span class="o">/</span> <span class="n">EarthRadius</span><span class="p">))</span> <span class="o">-</span> <span class="n">Pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="p">[</span><span class="n">Longitude</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">]</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022 - 2025 Xiangyong Luo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

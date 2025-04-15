@@ -1,5 +1,5 @@
 
-Welcome to utdf2gmns documentation!
+Welcome to vissim2gmns documentation!
 ===================================
 
 .. image:: https://badge.fury.io/py/vissim2gmns.svg
@@ -29,7 +29,7 @@ Welcome to utdf2gmns documentation!
 .. .. image:: https://img.shields.io/badge/License-MIT-blue.svg
 ..    :target: https://opensource.org/license/mit
 
-vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization.
+vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization and analysis.
 
 Official Document: https://vissim2gmns.readthedocs.io/en/latest/
 
@@ -37,16 +37,19 @@ Official GitHub: https://github.com/xyluo25/vissim2gmns
 
 .. toctree::
    :maxdepth: 3
-   :caption: utdf2gmns Navigation
+   :caption: vissim2gmns Navigation
 
    pages/_installation.rst
    pages/quick_start.rst
    pages/api_reference.rst
    pages/support.rst
+   _modules/index
 
 Indices and Tables
 ==================
 
 * :ref:`genindex`
+
+
 .. * :ref:`modindex`
 .. * :ref:`search`
