@@ -33,7 +33,7 @@ Specifically:
 
    > [!NOTE]
    >
-   >You will need to replace following numbers
+   > You will need to replace following numbers
 
    **Reference point in map**: (-9772791.018, 5317836.791)
 
