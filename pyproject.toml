@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "vissim2gmns"
-version = "1.5.4a2"
+version = "1.5.5"
 description = "vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization and analysis."
 authors = [
     {name = "Xiangyong Luo", email = "luoxiangyong01@gmail.com"},
