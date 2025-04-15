@@ -12,14 +12,17 @@ Specifically:
 >
 > We have deprecated the development of [vissim2geojson](https://pypi.org/project/vissim2geojson/) and the latest update have move to [vissim2gmns](https://github.com/xyluo25/vissim2gmns)
 
-## Need to know before using this tool
+## Background Knowledge Before Use This Tool
 
 1. **Vissim Simulation**
-   This tool is to conver files geneated by PTV Vissim. You design your own network or get network from other sources.
 
-   You will get the layer file (.inpx). the .inpx can only open by PTV Vissim and you can use this tool to convert layer file to wgs1984 so that you can open  the layer using different platform (QGIS, Kepler.gl, ArcMap...)
+   This tool is to conver files geneated by PTV Vissim.
 
-   You will get simulation results (such as .fzp and .fhz, these files can open by PTV Vissim but not other platforms). You can use this tool to convert .fzp file to .geojson and .csv, .fhz file to .geojson and .csv.
+   You will get the layer file (.inpx):
+
+   the .inpx can only open by PTV Vissim and you can use this tool to convert layer file to wgs1984 so that you can open  the layer using different platform (QGIS, Kepler.gl, ArcMap...)
+
+   You will get simulation results (such as .fzp and .fhz, these files can open by PTV Vissim but not other platforms). You can use this tool to convert .fzp file to .geojson and .csv, .fhz file to .geojson and .csv, and then perform analysis based on the simulation results.
 2. **Prepare data for this tool**
 
    In order to use this tool , you need to prepare information from VISSIM for the map conversion.
@@ -28,9 +31,12 @@ Specifically:
 
    Every time you are using PTV Vissim, the software will generate these nubmers at Base Data -> Network settings -> Display
 
-   **Reference point in map**: (-9772791.018, 5317836.791)                  you will need to replace these numbers by yours
+   > [!NOTE]   You will need to replace following numbers
+   >
 
-   **Reference point in network**: (0.000, 0.000)                                     you will need to replace these numbers by yours
+   **Reference point in map**: (-9772791.018, 5317836.791)
+
+   **Reference point in network**: (0.000, 0.000)                                     you will need to replace these numbers
 
    ![1655246139117](docs/image/README/1655246139117.png)
 
