@@ -39,7 +39,7 @@ Specifically:
 
    **Reference point in network (x_refnet, y_refnet)**: (0.000, 0.000)
 
-   ![1655246139117](docs/image/README/1655246139117.png)
+   ![1655246139117](https://github.com/xyluo25/vissim2gmns/blob/main/docs/image/README/1655246139117.png)
 
 ## How to use the tool
 
@@ -48,7 +48,7 @@ Specifically:
 2. use case
 
    Sample user case at intersection
-   ![1655249626589](docs/image/README/1655249626589.png)
+   ![1655249626589](https://github.com/xyluo25/vissim2gmns/blob/main/docs/image/README/1655249626589.png)
 
    ```python
    import  vissim2gmns as vg
