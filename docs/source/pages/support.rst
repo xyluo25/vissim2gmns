@@ -27,7 +27,7 @@ The project is licensed under `GNU license`_.
 Reference
 =========
 
-.. [XiangyongLuo] Xiangyong, Luo. “xyluo25/vissim2gmns: v1.5.4”. Zenodo, June 14, 2022. https://doi.org/10.5281/zenodo.14825686.
+.. [XiangyongLuo] Xiangyong Luo. (2025). xyluo25/vissim2gmns: v1.5.6dev (v1.5.6dev). Zenodo. https://doi.org/10.5281/zenodo.15231559
 
 
 ================
