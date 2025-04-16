@@ -20,7 +20,7 @@ except Exception:
 
 setuptools.setup(
     name="vissim2gmns",
-    version="1.5.5",
+    version="1.5.6",
     author="Xiangyong Luo",
     author_email="luoxiangyong01@gmail.com",
 

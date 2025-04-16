@@ -107,12 +107,12 @@
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_vissim_fzp</strong> (<em>str</em>) – the path to the vissim fzp file.</p></li>
-<li><p><strong>x_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map(Mercator). Defaults to -9772674.016.</p></li>
-<li><p><strong>y_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map(Mercator). Defaults to 5317775.409.</p></li>
-<li><p><strong>x_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</p></li>
-<li><p><strong>y_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</p></li>
-<li><p><strong>x_col_name</strong> (<em>str</em>) – the longitude column name in fzp file to convert fzp file to geojson. Defaults to “POS”.</p></li>
-<li><p><strong>y_col_name</strong> (<em>str</em>) – the latitude column name in fzp file to convert fzp file to geojson. Defaults to “POSLAT”.</p></li>
+<li><p><strong>x_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map (Mercator).</p></li>
+<li><p><strong>y_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map (Mercator).</p></li>
+<li><p><strong>x_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network (Cartesian Vissim System).</p></li>
+<li><p><strong>y_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network (Cartesian Vissim System).</p></li>
+<li><p><strong>x_col_name</strong> (<em>str</em>) – the longitude column name in fzp file to convert fzp file to geojson.</p></li>
+<li><p><strong>y_col_name</strong> (<em>str</em>) – the latitude column name in fzp file to convert fzp file to geojson.</p></li>
 </ul>
 </dd>
 </dl>
@@ -120,9 +120,9 @@
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">path_vissim_fzp</span> <span class="o">=</span> <span class="s2">&quot;./vissim_data/xl_002_001.fzp&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_refmap</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9772674.016</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refmap</span> <span class="o">=</span> <span class="mf">5317775.409</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># You can get this value from VISSIM software.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refmap</span> <span class="o">=</span> <span class="mf">5317775.409</span>   <span class="c1"># You can get this value from VISSIM software.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># You can get this value from VISSIM software.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># You can get this value from VISSIM software.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Save the results to geojson and csv files.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;vissim_fzp.geojson&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>

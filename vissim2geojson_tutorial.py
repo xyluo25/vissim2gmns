@@ -23,11 +23,6 @@ y_refnet = 0
 x_col_name = "POS"
 y_col_name = "POSLAT"
 
-df_fzp_t = vg.vissim_fzp_t(file_fzp, x_refmap, y_refmap, x_refnet, y_refnet)
-
-# using vissim folder as input path, will generate four files: inpx.geojson, fzp.geojson, fzp.csv, fhz.csv.
-# all result files will save to the same folder as the input folder.
-
 # Automatically convert all files (.inpx, .fzp, .fhz) in the folder
 net = vg.VISSIM2GMNS(file_folder, x_refmap, y_refmap, x_refnet, y_refnet, x_col_name, y_col_name)
 net.vissim_to_gmns()

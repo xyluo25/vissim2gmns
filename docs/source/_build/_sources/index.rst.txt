@@ -29,7 +29,7 @@ Welcome to vissim2gmns documentation!
 .. .. image:: https://img.shields.io/badge/License-MIT-blue.svg
 ..    :target: https://opensource.org/license/mit
 
-vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization.
+vissim2gmns converts VISSIM files (.inpx, .fzp, .fhz) into GMNS format with WGS 1984 coordinates for easy GIS visualization and analysis.
 
 Official Document: https://vissim2gmns.readthedocs.io/en/latest/
 

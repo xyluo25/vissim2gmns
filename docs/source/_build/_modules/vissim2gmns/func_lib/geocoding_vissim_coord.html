@@ -96,7 +96,7 @@
 <a class="viewcode-back" href="../../../pages/api/vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html#vissim2gmns.func_lib.cvt_vissim_to_wgs1984">[docs]</a>
 <span class="k">def</span><span class="w"> </span><span class="nf">cvt_vissim_to_wgs1984</span><span class="p">(</span><span class="n">x_vissim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_vissim</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
                           <span class="n">x_refmap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span>
-                          <span class="n">x_refnet</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">:</span>
+                          <span class="n">x_refnet</span><span class="p">:</span> <span class="nb">float</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">:</span> <span class="nb">float</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">tuple</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert single coordinate from VISSIM to WGS 1984.</span>
 
 <span class="sd">    Local coordinates in PTV Vissim use a cartesian coordinate system,</span>
@@ -131,8 +131,8 @@
 
     <span class="c1"># CorrectionFactorMercator,</span>
     <span class="c1"># the correction factor is required for transforming the latitude of a sphere(Mercator) to the WGS 84 ellipse.</span>
-    <span class="c1"># CorrectionFactorMercator = 1.001120232</span>
-    <span class="n">CorrectionFactorMercator</span> <span class="o">=</span> <span class="mf">1.0011202320000001</span>
+    <span class="n">CorrectionFactorMercator</span> <span class="o">=</span> <span class="mf">1.001120232</span>
+    <span class="c1"># CorrectionFactorMercator = 1.0011202320000001</span>
 
     <span class="c1"># WGS84 latitude coordinate for the reference point map.  Base map -&gt; Network Setting -&gt; Display</span>
     <span class="n">LatitudeRefPointMap</span> <span class="o">=</span> <span class="p">(</span>
@@ -149,7 +149,7 @@
     <span class="n">Longitude</span> <span class="o">=</span> <span class="n">a_cor</span> <span class="o">*</span> <span class="n">MercatorX</span> <span class="o">/</span> <span class="p">(</span><span class="n">Pi</span> <span class="o">*</span> <span class="n">r</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
     <span class="n">Latitude</span> <span class="o">=</span> <span class="p">(</span><span class="mi">2</span> <span class="o">*</span> <span class="n">math</span><span class="o">.</span><span class="n">atan</span><span class="p">(</span><span class="n">math</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="n">CorrectionFactorMercator</span> <span class="o">*</span> <span class="n">MercatorY</span> <span class="o">/</span> <span class="n">EarthRadius</span><span class="p">))</span> <span class="o">-</span> <span class="n">Pi</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="n">Pi</span> <span class="o">/</span> <span class="mi">180</span><span class="p">)</span>
 
-    <span class="k">return</span> <span class="p">[</span><span class="n">Longitude</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">]</span></div>
+    <span class="k">return</span> <span class="p">(</span><span class="n">Longitude</span><span class="p">,</span> <span class="n">Latitude</span><span class="p">)</span></div>
 
 </pre></div>
 

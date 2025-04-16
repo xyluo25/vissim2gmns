@@ -11,7 +11,7 @@ import math
 
 def cvt_vissim_to_wgs1984(x_vissim: float, y_vissim: float,
                           x_refmap: float, y_refmap: float,
-                          x_refnet: float, y_refnet: float) -> list:
+                          x_refnet: float, y_refnet: float) -> tuple:
     """Convert single coordinate from VISSIM to WGS 1984.
 
     Local coordinates in PTV Vissim use a cartesian coordinate system,
@@ -64,4 +64,4 @@ def cvt_vissim_to_wgs1984(x_vissim: float, y_vissim: float,
     Longitude = a_cor * MercatorX / (Pi * r / 180)
     Latitude = (2 * math.atan(math.exp(CorrectionFactorMercator * MercatorY / EarthRadius)) - Pi / 2) / (Pi / 180)
 
-    return [Longitude, Latitude]
+    return (Longitude, Latitude)

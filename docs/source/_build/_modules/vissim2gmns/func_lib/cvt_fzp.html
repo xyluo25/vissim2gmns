@@ -83,19 +83,19 @@
   <h1>Source code for vissim2gmns.func_lib.cvt_fzp</h1><div class="highlight"><pre>
 <span></span><span class="sd">&#39;&#39;&#39;</span>
 <span class="sd">##############################################################</span>
-<span class="sd"># Created Date: Monday, April 14th 2025</span>
+<span class="sd"># Created Date: Tuesday, April 15th 2025</span>
 <span class="sd"># Contact Info: luoxiangyong01@gmail.com</span>
 <span class="sd"># Author/Copyright: Mr. Xiangyong Luo</span>
 <span class="sd">##############################################################</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">contextlib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">geopandas</span><span class="w"> </span><span class="kn">import</span> <span class="n">GeoDataFrame</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">shapely.geometry</span><span class="w"> </span><span class="kn">import</span> <span class="n">Point</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyufunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">func_running_time</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">.geocoding_vissim_coord</span><span class="w"> </span><span class="kn">import</span> <span class="n">cvt_vissim_to_wgs1984</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pyufunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">func_running_time</span>
 
 
 <div class="viewcode-block" id="vissim_fzp">
@@ -109,20 +109,20 @@
 
 <span class="sd">    Args:</span>
 <span class="sd">        path_vissim_fzp (str): the path to the vissim fzp file.</span>
-<span class="sd">        x_refmap (float): coordinates of the reference point of the background map(Mercator). Defaults to -9772674.016.</span>
-<span class="sd">        y_refmap (float): coordinates of the reference point of the background map(Mercator). Defaults to 5317775.409.</span>
-<span class="sd">        x_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</span>
-<span class="sd">        y_refnet (int): coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</span>
-<span class="sd">        x_col_name (str): the longitude column name in fzp file to convert fzp file to geojson. Defaults to &quot;POS&quot;.</span>
-<span class="sd">        y_col_name (str): the latitude column name in fzp file to convert fzp file to geojson. Defaults to &quot;POSLAT&quot;.</span>
+<span class="sd">        x_refmap (float): coordinates of the reference point of the background map (Mercator).</span>
+<span class="sd">        y_refmap (float): coordinates of the reference point of the background map (Mercator).</span>
+<span class="sd">        x_refnet (int): coordinates of the reference point of the network (Cartesian Vissim System).</span>
+<span class="sd">        y_refnet (int): coordinates of the reference point of the network (Cartesian Vissim System).</span>
+<span class="sd">        x_col_name (str): the longitude column name in fzp file to convert fzp file to geojson.</span>
+<span class="sd">        y_col_name (str): the latitude column name in fzp file to convert fzp file to geojson.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; import vissim2gmns as vg</span>
 <span class="sd">        &gt;&gt;&gt; path_vissim_fzp = &quot;./vissim_data/xl_002_001.fzp&quot;</span>
 <span class="sd">        &gt;&gt;&gt; x_refmap = -9772674.016  # You can get this value from VISSIM software.</span>
-<span class="sd">        &gt;&gt;&gt; y_refmap = 5317775.409  # You can get this value from VISSIM software.</span>
-<span class="sd">        &gt;&gt;&gt; x_refnet = 0  # You can get this value from VISSIM software.</span>
-<span class="sd">        &gt;&gt;&gt; y_refnet = 0  # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; y_refmap = 5317775.409   # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; x_refnet = 0            # You can get this value from VISSIM software.</span>
+<span class="sd">        &gt;&gt;&gt; y_refnet = 0            # You can get this value from VISSIM software.</span>
 <span class="sd">        &gt;&gt;&gt; df_fzp = vg.vissim_fzp(path_vissim_fzp, x_refmap, y_refmap, x_refnet, y_refnet)</span>
 <span class="sd">        &gt;&gt;&gt; # Save the results to geojson and csv files.</span>
 <span class="sd">        &gt;&gt;&gt; df_fzp.to_file(&quot;vissim_fzp.geojson&quot;, driver=&quot;GeoJSON&quot;)</span>
@@ -132,56 +132,54 @@
 <span class="sd">        GeoDataFrame: converted geopandas dataframe.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
 
-    <span class="n">df_fzp</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span>
+    <span class="c1"># Read fzp file as binary and create a DataFrame of byte lines.</span>
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">ff</span><span class="p">:</span>
         <span class="n">df_fzp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">ff</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
 
-    <span class="n">fzp_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_fzp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span>  <span class="c1"># Get the vissim running time(date)</span>
+    <span class="c1"># Retrieve the VISSIM running date from a specific row.</span>
+    <span class="n">fzp_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_fzp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="p">:])</span>
 
     <span class="n">start_fzp</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_fzp</span><span class="p">))</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_fzp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="mi">0</span><span class="p">])[</span><span class="mi">3</span><span class="p">:</span><span class="mi">10</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;VEHICLE&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
 
-    <span class="c1"># fzp file starts from start_fzp(row 28)</span>
+    <span class="c1"># fzp file starts from the identified start position.</span>
     <span class="n">vissim_fzpdata</span> <span class="o">=</span> <span class="n">df_fzp</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_fzp</span><span class="p">:]</span>
     <span class="n">fzp_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">jj</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">vissim_fzpdata</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span>
 
-    <span class="n">columns_pre</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="c1"># Clean up and assign column names.</span>
     <span class="n">columns_pre</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">columns_pre</span><span class="p">:</span>
         <span class="k">if</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">r</span><span class="se">\\</span><span class="s2">n&#39;&quot;</span> <span class="ow">in</span> <span class="n">i</span><span class="p">:</span>
             <span class="n">columns_pre</span><span class="p">[</span><span class="n">columns_pre</span><span class="o">.</span><span class="n">index</span><span class="p">(</span><span class="n">i</span><span class="p">)]</span> <span class="o">=</span> <span class="n">i</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">]</span>
-
     <span class="n">fzp_data</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">columns_pre</span>
 
-    <span class="n">fzp_data</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span>
-    <span class="n">fzp_data</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="c1"># Process the data rows.</span>
+    <span class="n">fzp_data</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
     <span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="p">[</span><span class="n">i</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]]</span>
-
     <span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
 
-    <span class="n">fzp_data</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">fzp_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-        <span class="s2">&quot;Date: &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">])</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
+    <span class="c1"># Create a datetime column based on the fzp file&#39;s date and time offset.</span>
+    <span class="n">fzp_data</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="n">fzp_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Date: &quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="p">)</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s1">&#39;s&#39;</span><span class="p">)</span>
 
+    <span class="c1"># Clean the y-coordinate column values.</span>
     <span class="n">fzp_data</span><span class="p">[</span><span class="n">y_col_name</span><span class="p">]</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="p">[</span><span class="n">y_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="p">[:</span><span class="o">-</span><span class="mi">5</span><span class="p">])</span>
 
-    <span class="k">for</span> <span class="n">coor</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fzp_data</span><span class="p">[</span><span class="n">x_col_name</span><span class="p">])):</span>
-        <span class="c1"># &quot;COORDREARX&quot;</span>
-        <span class="k">with</span> <span class="n">contextlib</span><span class="o">.</span><span class="n">suppress</span><span class="p">(</span><span class="ne">Exception</span><span class="p">):</span>
-            <span class="p">(</span>
-                <span class="n">fzp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">coor</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span><span class="p">],</span>
-                <span class="n">fzp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">coor</span><span class="p">,</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span><span class="p">],</span>
-            <span class="p">)</span> <span class="o">=</span> <span class="n">cvt_vissim_to_wgs1984</span><span class="p">(</span>
-                <span class="nb">float</span><span class="p">(</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">coor</span><span class="p">,</span> <span class="n">x_col_name</span><span class="p">]),</span>
-                <span class="nb">float</span><span class="p">(</span><span class="n">fzp_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">coor</span><span class="p">,</span> <span class="n">y_col_name</span><span class="p">]),</span>
-                <span class="n">x_refmap</span><span class="p">,</span>
-                <span class="n">y_refmap</span><span class="p">,</span>
-                <span class="n">x_refnet</span><span class="p">,</span>
-                <span class="n">y_refnet</span><span class="p">,</span>
-            <span class="p">)</span>
+    <span class="c1"># Convert the x and y columns to NumPy arrays of floats.</span>
+    <span class="n">x_vals</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="p">[</span><span class="n">x_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
+    <span class="n">y_vals</span> <span class="o">=</span> <span class="n">fzp_data</span><span class="p">[</span><span class="n">y_col_name</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span><span class="o">.</span><span class="n">to_numpy</span><span class="p">()</span>
 
-    <span class="n">x_col_name_lonlat</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span>
-    <span class="n">y_col_name_lonlat</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span>
+    <span class="c1"># Create a vectorized version of the cvt_vissim_to_wgs1984 function.</span>
+    <span class="n">vec_cvt</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">vectorize</span><span class="p">(</span><span class="n">cvt_vissim_to_wgs1984</span><span class="p">,</span> <span class="n">otypes</span><span class="o">=</span><span class="p">[</span><span class="nb">float</span><span class="p">,</span> <span class="nb">float</span><span class="p">])</span>
 
-    <span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span> <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fzp_data</span><span class="p">[</span><span class="n">x_col_name_lonlat</span><span class="p">],</span> <span class="n">fzp_data</span><span class="p">[</span><span class="n">y_col_name_lonlat</span><span class="p">])]</span>
+    <span class="c1"># Apply the vectorized function to compute new coordinates.</span>
+    <span class="n">x_wgs</span><span class="p">,</span> <span class="n">y_wgs</span> <span class="o">=</span> <span class="n">vec_cvt</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
+    <span class="n">fzp_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">x_wgs</span>
+    <span class="n">fzp_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">y_wgs</span>
+
+    <span class="c1"># Create geometry for the GeoDataFrame.</span>
+    <span class="n">geometry</span> <span class="o">=</span> <span class="p">[</span><span class="n">Point</span><span class="p">(</span><span class="n">xy</span><span class="p">)</span> <span class="k">for</span> <span class="n">xy</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">fzp_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">x_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span><span class="p">],</span> <span class="n">fzp_data</span><span class="p">[</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">y_col_name</span><span class="si">}</span><span class="s2">_wgs&quot;</span><span class="p">])]</span>
+
     <span class="k">return</span> <span class="n">GeoDataFrame</span><span class="p">(</span><span class="n">fzp_data</span><span class="p">,</span> <span class="n">crs</span><span class="o">=</span><span class="s2">&quot;EPSG:4326&quot;</span><span class="p">,</span> <span class="n">geometry</span><span class="o">=</span><span class="n">geometry</span><span class="p">)</span></div>
 
 </pre></div>
