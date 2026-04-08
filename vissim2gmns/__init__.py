@@ -11,7 +11,7 @@ from vissim2gmns.func_lib.cvt_fzp import vissim_fzp
 from vissim2gmns.func_lib.geocoding_vissim_coord import cvt_vissim_to_wgs1984
 from vissim2gmns._vissim2geojson import VISSIM2GMNS
 
-__version__ = '1.5.4'
+__version__ = '1.5.7'
 
 pkg_name = 'vissim2geojson'
 pkg_author = 'Mr. Xiangyong Luo'
