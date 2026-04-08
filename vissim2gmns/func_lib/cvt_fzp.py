@@ -10,9 +10,20 @@
 import pandas as pd
 from geopandas import GeoDataFrame
 from shapely.geometry import Point
-from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
 import numpy as np
-from pyufunc import func_running_time
+from pyufunc import func_running_time, str_strip
+
+try:
+    from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
+except ImportError:
+    from geocoding_vissim_coord import cvt_vissim_to_wgs1984
+
+
+def remove_stripe_values(value):
+    """Remove stripe values from a string."""
+    if isinstance(value, str):
+        return value.replace("\\r", "").replace("\\n", "").replace("\n", "").replace("b'", "").replace("'", "")
+    return value
 
 
 @func_running_time
@@ -54,11 +65,17 @@ def vissim_fzp(path_vissim_fzp: str,
     # Retrieve the VISSIM running date from a specific row.
     fzp_date = str(df_fzp.iloc[3, :])
 
+    # remove \\r and \\n, \n characters from staring values
+    fzp_date = remove_stripe_values(fzp_date)
+
     start_fzp = next((i for i in range(len(df_fzp)) if str(df_fzp.iloc[i, 0])[3:10] == "VEHICLE"), 0)
 
     # fzp file starts from the identified start position.
     vissim_fzpdata = df_fzp.iloc[start_fzp:]
     fzp_data = pd.DataFrame([str(jj).split(';') for jj in vissim_fzpdata.iloc[:, 0]])
+
+    # Clean up and assign column names.
+    fzp_data = fzp_data.map(remove_stripe_values)
 
     # Clean up and assign column names.
     columns_pre = list(fzp_data.iloc[0])
@@ -69,16 +86,18 @@ def vissim_fzp(path_vissim_fzp: str,
 
     # Process the data rows.
     fzp_data = fzp_data.iloc[1:].reset_index(drop=True)
-    fzp_data.iloc[:, 0] = [i.split("'")[1] for i in fzp_data.iloc[:, 0]]
+    # fzp_data.iloc[:, 0] = [i.split("'")[1] for i in fzp_data.iloc[:, 0]]
     fzp_data.iloc[:, 0] = fzp_data.iloc[:, 0].astype(float)
 
     # Create a datetime column based on the fzp file's date and time offset.
     fzp_data["datetime"] = pd.to_datetime(
-        fzp_date.split("\\")[0].split("Date: ")[1]
-    ) + pd.to_timedelta(fzp_data.iloc[:, 0], unit='s')
+        fzp_date.split("Name")[0].split("Date:")[1].lstrip()
+    ) + pd.to_timedelta(fzp_data.iloc[:, 0], unit="s")
+
 
     # Clean the y-coordinate column values.
-    fzp_data[y_col_name] = fzp_data[y_col_name].apply(lambda x: x[:-5])
+    fzp_data[x_col_name] = fzp_data[x_col_name].map(str_strip)
+    fzp_data[y_col_name] = fzp_data[y_col_name].map(str_strip)
 
     # Convert the x and y columns to NumPy arrays of floats.
     x_vals = fzp_data[x_col_name].astype(float).to_numpy()

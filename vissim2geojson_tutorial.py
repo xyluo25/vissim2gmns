@@ -19,6 +19,16 @@ y_refmap = 5317836.791
 x_refnet = 0
 y_refnet = 0
 
+# file_inpx = "./datasets/aveiro_port_net/Aveiro_Port_Train_Network_25_03_2026.inpx"
+# file_fhz = "./datasets/aveiro_port_net/Aveiro_Port_Train_Network_25_03_2026_001.fhz"
+# file_fzp = "./datasets/aveiro_port_net/Aveiro_Port_Train_Network_25_03_2026_001.fzp"
+# file_folder = "./datasets/aveiro_port_net"
+#
+# x_refmap = -970628.702
+# y_refmap = 4954726.007
+# x_refnet = 0
+# y_refnet = 0
+
 # for covert fzp files, if you don't need to convert fzp file, leave these value to default values.
 x_col_name = "POS"
 y_col_name = "POSLAT"

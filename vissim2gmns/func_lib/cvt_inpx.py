@@ -12,9 +12,13 @@ import xml.etree.ElementTree as ET
 from shapely.geometry import LineString
 from geopandas import GeoDataFrame
 import geopandas as gpd
+import pandas as pd
 from pyufunc import func_running_time
 
-from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
+try:
+    from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
+except ImportError:
+    from geocoding_vissim_coord import cvt_vissim_to_wgs1984
 
 
 @func_running_time
@@ -56,40 +60,72 @@ def vissim_inpx(path_vissim_inpx: str,
 
     tree = ET.ElementTree(ET.fromstring(xmlstring))
     root = tree.getroot()
-    link = root.findall("links")[0]
+    links_iter = root.findall("links")[0]
+    link_list = links_iter.findall("link")
 
     # link_data_lonlat = []  # transfered x, y multistring data
-    link_linestring_lst = []
-    print(f"  :Converting {len(link)} links in inpx file to lonlat coordinates...")
-    for i in range(len(link)):
-        temp2 = []  # transferred single x, y data
-        for j in range(len(link[i])):
-            for k in range(len(link[i][j])):
-                with contextlib.suppress(Exception):
-                    for m in range(len(link[i][j][k])):
-                        vissim_x_val = float(link[i][j][k][m].attrib["x"])
-                        vissim_y_val = float(link[i][j][k][m].attrib["y"])
-                        temp2.append(cvt_vissim_to_wgs1984(vissim_x_val,
-                                                           vissim_y_val,
-                                                           x_refmap,
-                                                           y_refmap,
-                                                           x_refnet,
-                                                           y_refnet))
+    links_dict = {}
+    lanes_dict = {}
+    print(f"  :Converting {len(link_list)} links in inpx file to lonlat coordinates...")
+    for link in link_list:
+        link_attr_dict = link.attrib
+        link_no = link_attr_dict["no"]
+        temp2 = []
 
-        link_linestring_lst.append(LineString(temp2))  # link transferred
-        # link transferred
+        with contextlib.suppress(Exception):
+        # link[0] -> geometry; link[0][0] -> linkPolyPts inside geometry; link[0][0] -> lanes
+            for each_pt in link[0][0]:
+                vissim_x_val = float(each_pt.attrib["x"])
+                vissim_y_val = float(each_pt.attrib["y"])
+                temp2.append(cvt_vissim_to_wgs1984(vissim_x_val,
+                                                   vissim_y_val,
+                                                   x_refmap,
+                                                   y_refmap,
+                                                   x_refnet,
+                                                   y_refnet))
+
+        link_attr_dict["num_lanes"] = len(link[1])
+        link_attr_dict["geom"] = LineString(temp2)
+
+        links_dict[link_no] = link_attr_dict
+
+        with contextlib.suppress(Exception):
+            # link[0][1] -> lanes
+            lane_idx = 0
+            for lane in link[1]:
+                lane_attr_dict = lane.attrib
+                # print(f"  :Processing lane {lane_attr_dict}...")
+                lane_attr_dict["link_id"] = link_no
+                lane_attr_dict["lane_index"] = lane_idx
+
+                # skip lanes with only 2 attributes within the dictionary
+                if len(lane_attr_dict) == 2:
+                    continue
+                lane_idx += 1
+                lanes_dict[f"{link_no}_{lane_idx}"] = lane_attr_dict
 
     # create line series
-    line_series = gpd.GeoSeries(link_linestring_lst)
-    line_df = gpd.GeoDataFrame({"geometry": line_series}, crs="EPSG:4326")
+    df_links = pd.DataFrame.from_dict(links_dict, orient="index").reset_index(drop=True)
+    df_lanes = pd.DataFrame.from_dict(lanes_dict, orient="index").reset_index(drop=True)
+    # line_series = gpd.GeoSeries(link_linestring_lst)
+    # line_df = gpd.GeoDataFrame({"geometry": line_series}, crs="EPSG:4326")
+
+    gdf_links = gpd.GeoDataFrame(df_links, geometry="geom", crs="EPSG:4326")
+
+    # add link id column at the first column
+    gdf_links.insert(0, "link_id", gdf_links["no"])
 
     if output_fname:
-        output_fname_csv = Path(output_fname).with_suffix(Path(output_fname).suffix + ".csv")
-        line_df.to_csv(output_fname_csv, index=False)
+        output_fname_csv = Path(output_fname).with_suffix(
+            f"{Path(output_fname).suffix}.csv"
+        )
+        gdf_links.to_csv(output_fname_csv, index=False)
         print(f"  :Successfully saved inpx file to csv: {output_fname}")
 
-        output_fname_geojson = Path(output_fname).with_suffix(Path(output_fname).suffix + ".geojson")
-        line_df.to_file(output_fname_geojson, driver="GeoJSON")
+        output_fname_geojson = Path(output_fname).with_suffix(
+            f"{Path(output_fname).suffix}.geojson"
+        )
+        gdf_links.to_file(output_fname_geojson, driver="GeoJSON")
         print(f"  Successfully saved inpx file to geojson: {output_fname_geojson}")
 
-    return line_df
+    return gdf_links

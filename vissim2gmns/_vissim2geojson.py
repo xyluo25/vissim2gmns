@@ -105,11 +105,11 @@ class VISSIM2GMNS:
                                            self.x_col_name, self.y_col_name)
 
                 path_output = Path(path2linux(os.path.join(self._output_dir, i.name)))
-                path_output_geojson = path_output.with_suffix(path_output.suffix + ".geojson")
+                path_output_geojson = path_output.with_suffix(f"{path_output.suffix}.geojson")
 
                 self.fzp_data.to_file(path_output_geojson, driver="GeoJSON")
 
-                path_output_csv = path_output.with_suffix(path_output.suffix + ".csv")
+                path_output_csv = path_output.with_suffix(f"{path_output.suffix}.csv")
                 self.fzp_data.to_csv(path_output_csv, index=False)
                 print(f"Successfully save fzp file to geojson: {self._output_dir}\n")
 
@@ -119,7 +119,7 @@ class VISSIM2GMNS:
                 self.fhz_data = vissim_fhz(i)
 
                 path_output = Path(path2linux(os.path.join(self._output_dir, i.name)))
-                path_output = path_output.with_suffix(path_output.suffix + ".csv")
+                path_output = path_output.with_suffix(f"{path_output.suffix}.csv")
 
                 self.fhz_data.to_csv(path_output, header=True, index=False, encoding="utf_8_sig")
 

@@ -7,7 +7,7 @@
 '''
 
 import pandas as pd
-from pyufunc import func_running_time
+from pyufunc import func_running_time, str_strip
 
 
 @func_running_time
@@ -41,7 +41,14 @@ def vissim_fhz(path_vissim_fhz: str) -> pd.DataFrame:
     for j in range(len(fhz_data.iloc[:, 0])):
         fhz_data.iloc[j, 0] = str(fhz_data.iloc[j, 0]).split("'")[1]
 
+    # strip values for the whole table
+    fhz_data = fhz_data.map(str_strip)
+
     fhz_data.iloc[:, 0] = fhz_data.iloc[:, 0].astype(float)
+
+    # remove \\r and \\n, \n characters from staring values
+    fhz_date = fhz_date.replace("\\r", "").replace("\\n", "").replace("\n", "")
+
     fhz_data["datetime"] = pd.to_datetime(fhz_date.split("Name")[0].split(
         "Date:")[1].lstrip()) + pd.to_timedelta(fhz_data.iloc[:, 0], unit="s")
 
