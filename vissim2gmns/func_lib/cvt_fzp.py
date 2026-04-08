@@ -87,7 +87,9 @@ def vissim_fzp(path_vissim_fzp: str,
     # Process the data rows.
     fzp_data = fzp_data.iloc[1:].reset_index(drop=True)
     # fzp_data.iloc[:, 0] = [i.split("'")[1] for i in fzp_data.iloc[:, 0]]
-    fzp_data.iloc[:, 0] = fzp_data.iloc[:, 0].astype(float)
+    # fzp_data.iloc[:, 0] = fzp_data.iloc[:, 0].astype(float)
+    time_col = fzp_data.columns[0]
+    fzp_data[time_col] = pd.to_numeric(fzp_data[time_col], errors="coerce")
 
     # Create a datetime column based on the fzp file's date and time offset.
     fzp_data["datetime"] = pd.to_datetime(

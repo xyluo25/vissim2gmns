@@ -44,12 +44,19 @@ def vissim_fhz(path_vissim_fhz: str) -> pd.DataFrame:
     # strip values for the whole table
     fhz_data = fhz_data.map(str_strip)
 
-    fhz_data.iloc[:, 0] = fhz_data.iloc[:, 0].astype(float)
+    # Convert the first (time offset) column to numeric safely.
+    time_col = fhz_data.columns[0]
+    fhz_data[time_col] = pd.to_numeric(fhz_data[time_col], errors="coerce")
 
     # remove \\r and \\n, \n characters from staring values
     fhz_date = fhz_date.replace("\\r", "").replace("\\n", "").replace("\n", "")
 
     fhz_data["datetime"] = pd.to_datetime(fhz_date.split("Name")[0].split(
-        "Date:")[1].lstrip()) + pd.to_timedelta(fhz_data.iloc[:, 0], unit="s")
+        "Date:")[1].lstrip()) + pd.to_timedelta(fhz_data[time_col], unit="s")
 
     return fhz_data
+
+
+if __name__ == "__main__":
+    path_vissim_fhz = r"C:\Users\xh8\ORNL_Work\github_workspace\vissim2gmns\datasets\aveiro_port_net\Aveiro_Port_Train_Network_25_03_2026_001.fhz"
+    df_fhz = vissim_fhz(path_vissim_fhz)
