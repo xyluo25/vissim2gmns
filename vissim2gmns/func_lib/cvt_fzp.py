@@ -96,7 +96,6 @@ def vissim_fzp(path_vissim_fzp: str,
         fzp_date.split("Name")[0].split("Date:")[1].lstrip()
     ) + pd.to_timedelta(fzp_data.iloc[:, 0], unit="s")
 
-
     # Clean the y-coordinate column values.
     fzp_data[x_col_name] = fzp_data[x_col_name].map(str_strip)
     fzp_data[y_col_name] = fzp_data[y_col_name].map(str_strip)

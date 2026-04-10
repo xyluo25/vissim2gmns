@@ -14,11 +14,183 @@ from geopandas import GeoDataFrame
 import geopandas as gpd
 import pandas as pd
 from pyufunc import func_running_time
+import xmltodict
+from loguru import logger
 
 try:
     from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
 except ImportError:
     from geocoding_vissim_coord import cvt_vissim_to_wgs1984
+
+
+SELECTED_INPX_FIELDS = {
+    "vissimVersion": None,
+    "simulation": None,
+    "netPara": None,
+    "links": "link",
+    "nodes": "node",
+
+    "signalHeads": "signalHead",
+    "signalControllers": "signalController",
+
+    "laneMarkingTypes": "laneMarkingType",
+    "levels": "level",
+    "linkBehaviorTypes": "linkBehaviorType",
+
+    "drivingBehaviors": "drivingBehavior",
+    "occupancyDistributions": "occupancyDistribution",
+    "pedestrianClasses": "pedestrianClass",
+    "pedestrianTypes": "pedestrianType",
+    "parkLotGrps": "parkLotGrp",
+    "parkingLots": "parkingLot",
+    "stopSigns": "stopSign",
+    "vehicleClasses": "vehicleClass",
+    "vehicleInputs": "vehicleInput",
+    "vehicleTypes": "vehicleType",
+    "walkingBehaviors": "walkingBehavior",
+}
+
+ADDITIONAL_INPX_FIELDS = {
+    "anmDefaults": None,
+    "areaBehaviorTypes": "areaBehaviorType",
+    "backgroundImages": "backgroundImage",
+    "colorDistributions": "colorDistribution",
+    "conflictAreas": "conflictArea",
+    "desAccelerationFunctions": "desAccelerationFunction",
+    "desDecelerationFunctions": "desDecelerationFunction",
+    "desSpeedDecisions": "desSpeedDecision",
+    "desSpeedDistributions": "desSpeedDistribution",
+    "displayTypes": "displayType",
+    "dynamicAssignment": None,
+    "evaluation": None,
+    "pedestrianCompositions": "pedestrianComposition",
+    "locationDistributions": "locationDistribution",
+    "maxAccelerationFunctions": "maxAccelerationFunction",
+    "maxDecelerationFunctions": "maxDecelerationFunction",
+    "model2D3DDistributions": "model2D3DDistribution",
+    "models2D3D": "model2D3D",
+    "powerDistributions": "powerDistribution",
+    "reducedSpeedAreas": "reducedSpeedArea",
+    "timeDistributions": "timeDistribution",
+    "timeIntervalSets": "timeIntervalSet",
+    "vehicleCompositions": "vehicleComposition",
+    "vehicleRoutingDecisionsParking": "vehicleRoutingDecisionParking",
+    "vehicleRoutingDecisionsStatic": "vehicleRoutingDecisionStatic",
+    "weightDistributions": "weightDistribution",
+}
+
+
+
+
+def extract_inpx_data(path_vissim_inpx: str, inc_fields: list = None) -> dict:
+    """Extract data from vissim inpx file.
+
+    Args:
+        path_vissim_inpx (str): the path to the vissim inpx file.
+        inc_fields (list): the fields to be extracted from inpx file. Defaults to None, which means only minimum fields will be extracted.
+
+    Notes:
+        - The inpx file is an XML file, and the data is stored in a hierarchical structure. We need to parse the XML file and extract the relevant data. The data is stored in a dictionary format, where the keys are the names of the elements and attributes in the XML file, and the values are the corresponding values.
+
+        - keys starting with "@" are attributes in the original xml file and keys without "@" are elements in the original xml file.
+
+        - the inc_fields include: ["anmDefaults", "areaBehaviorTypes", "backgroundImages", "colorDistributions", "conflictAreas", "desAccelerationFunctions", "desDecelerationFunctions", "desSpeedDecisions", "desSpeedDistributions", "displayTypes",  "dynamicAssignment", "evaluation", "locationDistributions", "maxAccelerationFunctions", "maxDecelerationFunctions", "model2D3DDistributions", "models2D3D", "powerDistributions", "reducedSpeedAreas", "timeDistributions", "timeIntervalSets", "vehicleCompositions", "vehicleRoutingDecisionsParking", "vehicleRoutingDecisionsStatic", "weightDistributions"]
+
+        - default fields include: ["drivingBehaviors", "laneMarkingTypes", "levels", "linkBehaviorTypes", "links", "netPara", "nodes", "occupancyDistributions", "parkLotGrps", "parkingLots", "simulation", "stopSigns", "vehicleClasses", "vehicleInputs", "vehicleTypes", "walkingBehaviors"]
+
+    Returns:
+        dict: extracted data from inpx file.
+    """
+
+    inpx_dict = {}
+    with open(path_vissim_inpx, "r") as f:
+        xmlstring = f.read()
+
+    root_dict = xmltodict.parse(xmlstring, encoding="utf-8", process_namespaces=True)
+    root_network = root_dict.get("network", {})
+
+    if not root_network:
+        logger.error(f"  :Failed to extract network data from inpx file: {path_vissim_inpx}")
+        return {}
+
+
+
+    # add vissim version
+    for each_field in default_fields:
+        try:
+            field_data = root_network.get(each_field, {})
+
+            # if it's attribute add "@" before the field name
+            if not field_data:
+                field_data = root_network.get(f"@{each_field}", {})
+
+            if not field_data:
+                logger.error(f"  :Failed to extract {each_field} data from inpx file: {path_vissim_inpx}")
+                continue
+
+
+
+    try:
+        version = root_network.get("@vissimVersion", "")
+        inpx_dict["vissimVersion"] = version
+    except Exception as e:
+        logger.error(f"  :Failed to extract VISSIM version from inpx file: {path_vissim_inpx}. Error: {e}")
+
+
+
+
+
+    # prepare evaluation data
+    try:
+        evaluation = root_dict["network"]["evaluation"]
+        inpx_dict["evaluation"] = evaluation
+    except Exception as e:
+        logger.error(f"  :Failed to extract evaluation data from inpx file: {path_vissim_inpx}. Error: {e}")
+
+    # prepare lane marking types
+    try:
+        lane_marking_types = root_dict["network"]["laneMarkingTypes"]["laneMarkingType"]
+        inpx_dict["laneMarkingType"] = {}
+        if isinstance(lane_marking_types, dict):  # one lane marking type defined in the inpx file
+            lane_marking_types = [lane_marking_types]
+
+        if not isinstance(lane_marking_types, dict):
+            logger.error(f"  :Failed to extract lane marking type data from inpx file: {path_vissim_inpx}")
+
+        for each_lane_marking_type in lane_marking_types:
+            lane_marking_type_id = each_lane_marking_type["@no"]
+            inpx_dict["lane_marking_types"][lane_marking_type_id] = each_lane_marking_type
+    except Exception as e:
+        logger.error(f"  :Failed to extract lane marking type data from inpx file: {path_vissim_inpx}. Error: {e}")
+
+    # prepare level data
+    try:
+        level = root_dict["network"]["levels"]["level"]
+        inpx_dict["level"] = {}
+        if isinstance(level, dict):  # one level defined in the inpx file
+            level = [level]
+
+        for each_level in level:
+            level_id = each_level["@no"]
+            inpx_dict["level"][level_id] = each_level
+    except Exception as e:
+        logger.error(f"  :Failed to extract level data from inpx file: {path_vissim_inpx}. Error: {e}")
+
+    # prepare link behavior type data
+    try:
+        link_behavior_type = root_dict["network"]["linkBehaviorTypes"]["linkBehaviorType"]
+        inpx_dict["link_behavior_types"] = {}
+        if isinstance(link_behavior_type, dict):  # one link behavior type defined in the inpx file
+            link_behavior_type = [link_behavior_type]
+
+        for each_link_behavior_type in link_behavior_type:
+            link_behavior_type_id = each_link_behavior_type["@no"]
+            inpx_dict["link_behavior_types"][link_behavior_type_id] = each_link_behavior_type
+    except Exception as e:
+        logger.error(f"  :Failed to extract link behavior type data from inpx file: {path_vissim_inpx}. Error: {e}")
+
+
+    return root_dict
 
 
 @func_running_time
@@ -129,3 +301,12 @@ def vissim_inpx(path_vissim_inpx: str,
         print(f"  Successfully saved inpx file to geojson: {output_fname_geojson}")
 
     return gdf_links
+
+
+if __name__ == "__main__":
+    path_vissim_inpx = r"C:\Users\xh8\ORNL_Work\github_workspace\vissim2gmns\datasets\aveiro_port_net\Aveiro_Port_Train_Network_25_03_2026.inpx"
+    x_refmap = -970628.702
+    y_refmap = 4954726.007
+    x_refnet = 0
+    y_refnet = 0
+
