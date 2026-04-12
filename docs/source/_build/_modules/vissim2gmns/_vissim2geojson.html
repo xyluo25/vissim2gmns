@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../../_static/vissim2gmns.ico"/>
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../_static/documentation_options.js?v=674ce552"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -105,19 +105,25 @@
 <div class="viewcode-block" id="VISSIM2GMNS">
 <a class="viewcode-back" href="../../pages/api/vissim2gmns.VISSIM2GMNS.html#vissim2gmns.VISSIM2GMNS">[docs]</a>
 <span class="k">class</span> <span class="nc">VISSIM2GMNS</span><span class="p">:</span>
-<span class="w">    </span><span class="sd">&quot;&quot;&quot;A tool to convert vissim files to geojson and csv.</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;A tool to convert vissim files to csv, geojson and shp files.</span>
 
-<span class="sd">    Specifically:</span>
+<span class="sd">    Notes:</span>
+<span class="sd">        - convert .inpx file to geopandas dataframe and csv/geojson/shp file</span>
+<span class="sd">        - convert .fzp file to geopandas dataframe and csv/geojson/shp file</span>
+<span class="sd">        - convert .fhz file to csv file</span>
 
-<span class="sd">    - convert .inpx file to geopandas dataframe and csv/geojson/shp file</span>
-<span class="sd">    - convert .fzp file to geopandas dataframe and csv/geojson/shp file</span>
-<span class="sd">    - convert .fhz file to csv file</span>
+<span class="sd">    See Also:</span>
+<span class="sd">        - GMNS: General Modeling Network Specification(https://github.com/zephyr-data-specs/GMNS)</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; from vissim2gmns import VISSIM2GMNS</span>
+<span class="sd">        &gt;&gt;&gt; vissim = VISSIM2GMNS(&quot;./vissim_data/dir&quot;)</span>
+<span class="sd">        &gt;&gt;&gt; vissim.vissim_to_gmns()</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        vissim_file_path (str): the folder or file path to the vissim file</span>
 <span class="sd">        x_col_name (str): the longitude column name in fzp file to convert fzp file to geojson. Defaults to &quot;POS&quot;.</span>
 <span class="sd">        y_col_name (str): the latitude column name in fzp file to convert fzp file to geojson. Defaults to &quot;POSLAT&quot;.</span>
-
 <span class="sd">    &quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="VISSIM2GMNS.__init__">

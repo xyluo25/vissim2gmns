@@ -37,8 +37,11 @@ def vissim_fhz(path_vissim_fhz: str, output_dir: str = "") -> pd.DataFrame:
         >>> import vissim2gmns as vg
         >>> path_vissim_fhz = "./vissim_data/xl_002_001.fhz"
         >>> output_dir = "./output"
-        >>> df_fhz = vg.vissim_fhz(path_vissim_fhz, output_dir=output_dir)  # get the fhz data and save to csv file in the output_dir.
-        >>> df_fhz = vg.vissim_fhz(path_vissim_fhz)  # get the fhz data as a pandas dataframe without saving to file.
+        >>> # get the fhz data as a pandas dataframe without saving to file.
+        >>> df_fhz = vg.vissim_fhz(path_vissim_fhz)
+        >>>
+        >>> # get the fhz data as a pandas dataframe and save to csv file in the output_dir.
+        >>> df_fhz = vg.vissim_fhz(path_vissim_fhz, output_dir=output_dir)
 
     Returns:
         pd.DataFrame: converted pandas dataframe.

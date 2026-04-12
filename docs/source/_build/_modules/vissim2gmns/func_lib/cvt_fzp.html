@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../../../_static/vissim2gmns.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../../_static/documentation_options.js?v=674ce552"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -106,11 +106,11 @@
 <span class="n">warnings</span><span class="o">.</span><span class="n">filterwarnings</span><span class="p">(</span><span class="s2">&quot;ignore&quot;</span><span class="p">,</span> <span class="n">category</span><span class="o">=</span><span class="ne">UserWarning</span><span class="p">)</span>
 
 <span class="k">try</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">.geocoding_vissim_coord</span> <span class="kn">import</span> <span class="n">cvt_vissim_to_wgs1984</span>
+    <span class="c1"># from .geocoding_vissim_coord import cvt_vissim_to_wgs1984</span>
     <span class="kn">from</span> <span class="nn">.cvt_inpx</span> <span class="kn">import</span> <span class="n">vissim_inpx</span>
     <span class="kn">from</span> <span class="nn">.link_projection</span> <span class="kn">import</span> <span class="n">point_on_wkt_line_by_distance</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
-    <span class="kn">from</span> <span class="nn">geocoding_vissim_coord</span> <span class="kn">import</span> <span class="n">cvt_vissim_to_wgs1984</span>
+    <span class="c1"># from geocoding_vissim_coord import cvt_vissim_to_wgs1984</span>
     <span class="kn">from</span> <span class="nn">cvt_inpx</span> <span class="kn">import</span> <span class="n">vissim_inpx</span>
     <span class="kn">from</span> <span class="nn">link_projection</span> <span class="kn">import</span> <span class="n">point_on_wkt_line_by_distance</span>
 
@@ -154,10 +154,15 @@
 <span class="sd">        &gt;&gt;&gt; output_dir = &quot;./output&quot;</span>
 <span class="sd">        &gt;&gt;&gt; x_col_name = &quot;POS&quot;</span>
 <span class="sd">        &gt;&gt;&gt; y_col_name = &quot;POSLAT&quot;</span>
-<span class="sd">        &gt;&gt;&gt; df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx) # get the fzp data as a geopandas dataframe without saving to file.</span>
-<span class="sd">        &gt;&gt;&gt; df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx, output_dir=output_dir) # get fzp data and save shp files to the output_dir.</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # get the fzp data as a geopandas dataframe without saving to file.</span>
+<span class="sd">        &gt;&gt;&gt; df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # get the fzp data as a geopandas dataframe and save shp files (default) to the output_dir.</span>
+<span class="sd">        &gt;&gt;&gt; df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx, output_dir=output_dir)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # get the fzp data as a geopandas dataframe and control the output file format by setting isShp, isGeojson and isCsv parameters.</span>
 <span class="sd">        &gt;&gt;&gt; df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx, output_dir=output_dir, isShp=True, isGeojson=True, isCsv=True)</span>
-<span class="sd">        &gt;&gt;&gt;    # get fzp data and save csv, geojson and shapefile to the output_dir.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        GeoDataFrame: converted geopandas dataframe.</span>

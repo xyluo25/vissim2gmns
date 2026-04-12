@@ -1,6 +1,6 @@
 
 Welcome to vissim2gmns documentation!
-===================================
+======================================
 
 .. image:: https://badge.fury.io/py/vissim2gmns.svg
    :target: https://badge.fury.io/py/vissim2gmns
@@ -43,7 +43,6 @@ Official GitHub: https://github.com/xyluo25/vissim2gmns
    pages/quick_start.rst
    pages/api_reference.rst
    pages/support.rst
-   _modules/index
 
 Indices and Tables
 ==================

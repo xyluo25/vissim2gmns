@@ -1,0 +1,218 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>vissim2gmns.func_lib.link_projection &mdash; vissim2gmns</title>
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
+
+  
+    <link rel="shortcut icon" href="../../../_static/vissim2gmns.ico"/>
+      <script src="../../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../../_static/documentation_options.js?v=674ce552"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../../genindex.html" />
+    <link rel="search" title="Search" href="../../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../../index.html" class="icon icon-home">
+            vissim2gmns
+              <img src="../../../_static/vissim2gmns.ico" class="logo" alt="Logo"/>
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">vissim2gmns Navigation</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/_installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/quick_start.html">Quick Start Guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/api_reference.html">API Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html">Citation Request</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#official-links">Official Links</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#license">License</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#reference">Reference</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../../pages/support.html#acknowledgements">Acknowledgements</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../../index.html">vissim2gmns</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">vissim2gmns.func_lib.link_projection</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for vissim2gmns.func_lib.link_projection</h1><div class="highlight"><pre>
+<span></span><span class="sd">&#39;&#39;&#39;</span>
+<span class="sd">##############################################################</span>
+<span class="sd"># Created Date: Thursday, April 9th 2026</span>
+<span class="sd"># Contact Info: luoxiangyong01@gmail.com</span>
+<span class="sd"># Author/Copyright: Mr. Xiangyong Luo</span>
+<span class="sd">##############################################################</span>
+<span class="sd">&#39;&#39;&#39;</span>
+
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+<span class="kn">from</span> <span class="nn">shapely</span> <span class="kn">import</span> <span class="n">wkt</span>
+<span class="kn">from</span> <span class="nn">shapely.geometry</span> <span class="kn">import</span> <span class="n">Point</span><span class="p">,</span> <span class="n">LineString</span><span class="p">,</span> <span class="n">MultiLineString</span>
+<span class="kn">from</span> <span class="nn">shapely.ops</span> <span class="kn">import</span> <span class="n">linemerge</span>
+<span class="kn">from</span> <span class="nn">pyproj</span> <span class="kn">import</span> <span class="n">Geod</span>
+
+
+<div class="viewcode-block" id="point_on_wkt_line_by_distance">
+<a class="viewcode-back" href="../../../pages/api/vissim2gmns.func_lib.point_on_wkt_line_by_distance.html#vissim2gmns.func_lib.point_on_wkt_line_by_distance">[docs]</a>
+<span class="k">def</span> <span class="nf">point_on_wkt_line_by_distance</span><span class="p">(</span>
+    <span class="n">link_geom</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="n">LineString</span> <span class="o">|</span> <span class="n">MultiLineString</span><span class="p">,</span>
+    <span class="n">distance_in_meters</span><span class="p">:</span> <span class="nb">float</span>
+<span class="p">)</span> <span class="o">-&gt;</span> <span class="n">Point</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Generate a WGS84 point on a line at a given distance from the start.</span>
+
+<span class="sd">    Args:</span>
+<span class="sd">        link_geom (str | LineString | MultiLineString): WKT string or Shapely geometry representing a LINESTRING or mergeable MULTILINESTRING.</span>
+<span class="sd">        distance_in_meters (float): Distance along the line in meters from the start point.</span>
+
+<span class="sd">    Notes:</span>
+<span class="sd">        - link_geom can be provided as a WKT string or as a Shapely LineString or MultiLineString object.</span>
+<span class="sd">            If a MultiLineString is provided, it will be merged into a single LineString if possible.</span>
+<span class="sd">        - If the distance is negative, it will be treated as 0 (the start point).</span>
+<span class="sd">        - If the distance exceeds the total length of the line, the last point of the line will be returned.</span>
+<span class="sd">        - The function uses geodesic calculations to account for the curvature of the Earth, ensuring accurate distance measurements in WGS84 coordinates.</span>
+
+<span class="sd">    Example:</span>
+<span class="sd">        &gt;&gt;&gt; import vissim2gmns as vg</span>
+<span class="sd">        &gt;&gt;&gt; link_wkt = &quot;LINESTRING (-111.935 33.421, -111.934 33.422, -111.933 33.423)&quot;</span>
+<span class="sd">        &gt;&gt;&gt; distance_in_meters = 120</span>
+<span class="sd">        &gt;&gt;&gt; # Get the point on the line at the specified distance.</span>
+<span class="sd">        &gt;&gt;&gt; pt = vg.point_on_wkt_line_by_distance(link_wkt, distance_in_meters)</span>
+<span class="sd">        &gt;&gt;&gt; print(pt)         # POINT (lon lat)</span>
+<span class="sd">        &gt;&gt;&gt; print(pt.wkt)     # WKT format</span>
+<span class="sd">        &gt;&gt;&gt; print(pt.x, pt.y)  # longitude, latitude</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        Point: A Shapely Point object representing the location on the line at the specified distance.</span>
+
+<span class="sd">    Raises:</span>
+<span class="sd">        ValueError: If the input WKT is not a valid LINESTRING or mergeable MULTILINESTRING, or if the distance is negative or exceeds the line length.</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="k">if</span> <span class="n">distance_in_meters</span> <span class="o">&lt;</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">distance_in_meters</span> <span class="o">=</span> <span class="mi">0</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">warning</span><span class="p">(</span><span class="s2">&quot;Distance cannot be negative. Set to 0.&quot;</span><span class="p">)</span>
+
+    <span class="n">geom</span> <span class="o">=</span> <span class="n">wkt</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">link_geom</span><span class="p">)</span> <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">link_geom</span><span class="p">,</span> <span class="nb">str</span><span class="p">)</span> <span class="k">else</span> <span class="n">link_geom</span>
+
+    <span class="c1"># Support LINESTRING and mergeable MULTILINESTRING</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">MultiLineString</span><span class="p">):</span>
+        <span class="n">geom</span> <span class="o">=</span> <span class="n">linemerge</span><span class="p">(</span><span class="n">geom</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">geom</span><span class="p">,</span> <span class="n">LineString</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+            <span class="s2">&quot;Input WKT must be a LINESTRING or mergeable MULTILINESTRING.&quot;</span><span class="p">)</span>
+
+    <span class="n">coords</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">geom</span><span class="o">.</span><span class="n">coords</span><span class="p">)</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span><span class="s2">&quot;Line must contain at least two coordinates.&quot;</span><span class="p">)</span>
+
+    <span class="n">geod</span> <span class="o">=</span> <span class="n">Geod</span><span class="p">(</span><span class="n">ellps</span><span class="o">=</span><span class="s2">&quot;WGS84&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Distance = 0, return the first point</span>
+    <span class="k">if</span> <span class="n">distance_in_meters</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+        <span class="n">x0</span><span class="p">,</span> <span class="n">y0</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+        <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">x0</span><span class="p">,</span> <span class="n">y0</span><span class="p">)</span>
+
+    <span class="n">accumulated</span> <span class="o">=</span> <span class="mf">0.0</span>
+
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">coords</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+        <span class="n">lon1</span><span class="p">,</span> <span class="n">lat1</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">lon2</span><span class="p">,</span> <span class="n">lat2</span> <span class="o">=</span> <span class="n">coords</span><span class="p">[</span><span class="n">i</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+        <span class="n">az12</span><span class="p">,</span> <span class="n">az21</span><span class="p">,</span> <span class="n">seg_len</span> <span class="o">=</span> <span class="n">geod</span><span class="o">.</span><span class="n">inv</span><span class="p">(</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">lon2</span><span class="p">,</span> <span class="n">lat2</span><span class="p">)</span>
+
+        <span class="k">if</span> <span class="n">accumulated</span> <span class="o">+</span> <span class="n">seg_len</span> <span class="o">&gt;=</span> <span class="n">distance_in_meters</span><span class="p">:</span>
+            <span class="n">remaining</span> <span class="o">=</span> <span class="n">distance_in_meters</span> <span class="o">-</span> <span class="n">accumulated</span>
+            <span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">geod</span><span class="o">.</span><span class="n">fwd</span><span class="p">(</span><span class="n">lon1</span><span class="p">,</span> <span class="n">lat1</span><span class="p">,</span> <span class="n">az12</span><span class="p">,</span> <span class="n">remaining</span><span class="p">)</span>
+            <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">lon</span><span class="p">,</span> <span class="n">lat</span><span class="p">)</span>
+
+        <span class="n">accumulated</span> <span class="o">+=</span> <span class="n">seg_len</span>
+
+    <span class="c1"># If distance exceeds total line length, return the last point</span>
+    <span class="k">return</span> <span class="n">Point</span><span class="p">(</span><span class="n">coords</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span></div>
+
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">link_wkt</span> <span class="o">=</span> <span class="s2">&quot;LINESTRING (-111.935 33.421, -111.934 33.422, -111.933 33.423)&quot;</span>
+    <span class="n">distance_in_meters</span> <span class="o">=</span> <span class="mi">120</span>
+
+    <span class="n">pt</span> <span class="o">=</span> <span class="n">point_on_wkt_line_by_distance</span><span class="p">(</span><span class="n">link_wkt</span><span class="p">,</span> <span class="n">distance_in_meters</span><span class="p">)</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>         <span class="c1"># POINT (lon lat)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">wkt</span><span class="p">)</span>     <span class="c1"># WKT format</span>
+    <span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># longitude, latitude</span>
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022 - 2026 Xiangyong Luo.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

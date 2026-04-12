@@ -36,6 +36,7 @@ def cvt_vissim_to_wgs1984(x_vissim: float, y_vissim: float,
         >>> # Convert VISSIM coordinates to WGS 1984 coordinates.
         >>> cvt_vissim_to_wgs1842(x_vissim, y_vissim, x_refmap, y_refmap, x_refnet, y_refnet)
         >>> # return the converted coordinate in WGS 1984, [Longitude, Latitude]
+        >>> (-77.036870, 38.907192)
 
     Returns:
         list: the converted coordinate in WGS 1984, [Longitude, Latitude]

@@ -14,7 +14,7 @@
     <link rel="shortcut icon" href="../../../_static/vissim2gmns.ico"/>
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../../_static/documentation_options.js?v=674ce552"></script>
       <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -122,8 +122,11 @@
 <span class="sd">        &gt;&gt;&gt; import vissim2gmns as vg</span>
 <span class="sd">        &gt;&gt;&gt; path_vissim_fhz = &quot;./vissim_data/xl_002_001.fhz&quot;</span>
 <span class="sd">        &gt;&gt;&gt; output_dir = &quot;./output&quot;</span>
-<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz, output_dir=output_dir)  # get the fhz data and save to csv file in the output_dir.</span>
-<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz)  # get the fhz data as a pandas dataframe without saving to file.</span>
+<span class="sd">        &gt;&gt;&gt; # get the fhz data as a pandas dataframe without saving to file.</span>
+<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz)</span>
+<span class="sd">        &gt;&gt;&gt;</span>
+<span class="sd">        &gt;&gt;&gt; # get the fhz data as a pandas dataframe and save to csv file in the output_dir.</span>
+<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz, output_dir=output_dir)</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        pd.DataFrame: converted pandas dataframe.</span>

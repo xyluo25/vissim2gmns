@@ -23,6 +23,23 @@ def point_on_wkt_line_by_distance(
         link_geom (str | LineString | MultiLineString): WKT string or Shapely geometry representing a LINESTRING or mergeable MULTILINESTRING.
         distance_in_meters (float): Distance along the line in meters from the start point.
 
+    Notes:
+        - link_geom can be provided as a WKT string or as a Shapely LineString or MultiLineString object.
+            If a MultiLineString is provided, it will be merged into a single LineString if possible.
+        - If the distance is negative, it will be treated as 0 (the start point).
+        - If the distance exceeds the total length of the line, the last point of the line will be returned.
+        - The function uses geodesic calculations to account for the curvature of the Earth, ensuring accurate distance measurements in WGS84 coordinates.
+
+    Example:
+        >>> import vissim2gmns as vg
+        >>> link_wkt = "LINESTRING (-111.935 33.421, -111.934 33.422, -111.933 33.423)"
+        >>> distance_in_meters = 120
+        >>> # Get the point on the line at the specified distance.
+        >>> pt = vg.point_on_wkt_line_by_distance(link_wkt, distance_in_meters)
+        >>> print(pt)         # POINT (lon lat)
+        >>> print(pt.wkt)     # WKT format
+        >>> print(pt.x, pt.y)  # longitude, latitude
+
     Returns:
         Point: A Shapely Point object representing the location on the line at the specified distance.
 

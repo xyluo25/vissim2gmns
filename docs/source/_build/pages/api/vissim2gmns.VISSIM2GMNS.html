@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../../_static/vissim2gmns.ico"/>
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../_static/documentation_options.js?v=674ce552"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -99,13 +99,25 @@
 <dl class="py class">
 <dt class="sig sig-object py" id="vissim2gmns.VISSIM2GMNS">
 <span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">vissim2gmns.</span></span><span class="sig-name descname"><span class="pre">VISSIM2GMNS</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">input_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'POS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'POSLAT'</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/vissim2gmns/_vissim2geojson.html#VISSIM2GMNS"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.VISSIM2GMNS" title="Link to this definition"></a></dt>
-<dd><p>A tool to convert vissim files to geojson and csv.</p>
-<p>Specifically:</p>
+<dd><p>A tool to convert vissim files to csv, geojson and shp files.</p>
+<p class="rubric">Notes</p>
 <ul class="simple">
 <li><p>convert .inpx file to geopandas dataframe and csv/geojson/shp file</p></li>
 <li><p>convert .fzp file to geopandas dataframe and csv/geojson/shp file</p></li>
 <li><p>convert .fhz file to csv file</p></li>
 </ul>
+<div class="admonition seealso">
+<p class="admonition-title">See also</p>
+<ul class="simple">
+<li><p>GMNS: General Modeling Network Specification(<a class="reference external" href="https://github.com/zephyr-data-specs/GMNS">https://github.com/zephyr-data-specs/GMNS</a>)</p></li>
+</ul>
+</div>
+<p class="rubric">Example</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">vissim2gmns</span> <span class="kn">import</span> <span class="n">VISSIM2GMNS</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vissim</span> <span class="o">=</span> <span class="n">VISSIM2GMNS</span><span class="p">(</span><span class="s2">&quot;./vissim_data/dir&quot;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">vissim</span><span class="o">.</span><span class="n">vissim_to_gmns</span><span class="p">()</span>
+</pre></div>
+</div>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">

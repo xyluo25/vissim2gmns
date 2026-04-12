@@ -6,7 +6,7 @@
   <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>vissim2gmns.func_lib.vissim_inpx &mdash; vissim2gmns</title>
+  <title>vissim2gmns.func_lib.point_on_wkt_line_by_distance &mdash; vissim2gmns</title>
       <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
       <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
@@ -23,8 +23,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="vissim2gmns.func_lib.vissim_fzp" href="vissim2gmns.func_lib.vissim_fzp.html" />
-    <link rel="prev" title="vissim2gmns.VISSIM2GMNS" href="vissim2gmns.VISSIM2GMNS.html" /> 
+    <link rel="next" title="Citation Request" href="../support.html" />
+    <link rel="prev" title="vissim2gmns.func_lib.create_lane_geometries" href="vissim2gmns.func_lib.create_lane_geometries.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,15 +54,15 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api_reference.html#vissim2gmns-class">VISSIM2GMNS Class</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api_reference.html#function-library">Function Library</a><ul class="current">
-<li class="toctree-l3 current"><a class="current reference internal" href="#">vissim2gmns.func_lib.vissim_inpx</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#vissim2gmns.func_lib.vissim_inpx"><code class="docutils literal notranslate"><span class="pre">vissim_inpx()</span></code></a></li>
-</ul>
-</li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_inpx.html">vissim2gmns.func_lib.vissim_inpx</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_fzp.html">vissim2gmns.func_lib.vissim_fzp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_fhz.html">vissim2gmns.func_lib.vissim_fhz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.create_lane_geometries.html">vissim2gmns.func_lib.create_lane_geometries</a></li>
-<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.point_on_wkt_line_by_distance.html">vissim2gmns.func_lib.point_on_wkt_line_by_distance</a></li>
+<li class="toctree-l3 current"><a class="current reference internal" href="#">vissim2gmns.func_lib.point_on_wkt_line_by_distance</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#vissim2gmns.func_lib.point_on_wkt_line_by_distance"><code class="docutils literal notranslate"><span class="pre">point_on_wkt_line_by_distance()</span></code></a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul>
@@ -89,9 +89,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="../api_reference.html">API Reference</a></li>
-      <li class="breadcrumb-item active">vissim2gmns.func_lib.vissim_inpx</li>
+      <li class="breadcrumb-item active">vissim2gmns.func_lib.point_on_wkt_line_by_distance</li>
       <li class="wy-breadcrumbs-aside">
-            <a href="../../_sources/pages/api/vissim2gmns.func_lib.vissim_inpx.rst.txt" rel="nofollow"> View page source</a>
+            <a href="../../_sources/pages/api/vissim2gmns.func_lib.point_on_wkt_line_by_distance.rst.txt" rel="nofollow"> View page source</a>
       </li>
   </ul>
   <hr/>
@@ -99,48 +99,51 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
              
-  <section id="vissim2gmns-func-lib-vissim-inpx">
-<h1>vissim2gmns.func_lib.vissim_inpx<a class="headerlink" href="#vissim2gmns-func-lib-vissim-inpx" title="Link to this heading"></a></h1>
+  <section id="vissim2gmns-func-lib-point-on-wkt-line-by-distance">
+<h1>vissim2gmns.func_lib.point_on_wkt_line_by_distance<a class="headerlink" href="#vissim2gmns-func-lib-point-on-wkt-line-by-distance" title="Link to this heading"></a></h1>
 <dl class="py function">
-<dt class="sig sig-object py" id="vissim2gmns.func_lib.vissim_inpx">
-<span class="sig-prename descclassname"><span class="pre">vissim2gmns.func_lib.</span></span><span class="sig-name descname"><span class="pre">vissim_inpx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_vissim_inpx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/vissim2gmns/func_lib/cvt_inpx.html#vissim_inpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.func_lib.vissim_inpx" title="Link to this definition"></a></dt>
-<dd><p>Convert vissim inpx file to geopandas dataframe.</p>
+<dt class="sig sig-object py" id="vissim2gmns.func_lib.point_on_wkt_line_by_distance">
+<span class="sig-prename descclassname"><span class="pre">vissim2gmns.func_lib.</span></span><span class="sig-name descname"><span class="pre">point_on_wkt_line_by_distance</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">link_geom</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">LineString</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">MultiLineString</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">distance_in_meters</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">Point</span></span></span><a class="reference internal" href="../../_modules/vissim2gmns/func_lib/link_projection.html#point_on_wkt_line_by_distance"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.func_lib.point_on_wkt_line_by_distance" title="Link to this definition"></a></dt>
+<dd><p>Generate a WGS84 point on a line at a given distance from the start.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
-<li><p><strong>path_vissim_inpx</strong> (<em>str</em>) – the path to the vissim inpx file.</p></li>
-<li><p><strong>output_dir</strong> (<em>str</em>) – the directory to save the output files. Defaults to “”.</p></li>
-<li><p><strong>**kwargs</strong> – other parameters for the conversion, such as isShp, isGeojson, isCsv.</p></li>
+<li><p><strong>link_geom</strong> (<em>str</em><em> | </em><em>LineString</em><em> | </em><em>MultiLineString</em>) – WKT string or Shapely geometry representing a LINESTRING or mergeable MULTILINESTRING.</p></li>
+<li><p><strong>distance_in_meters</strong> (<em>float</em>) – Distance along the line in meters from the start point.</p></li>
 </ul>
 </dd>
 </dl>
 <p class="rubric">Notes</p>
 <ul class="simple">
-<li><p>output_dir: if not provide no data will be saved.</p></li>
-<li><p>isShp: whether to save the output as shapefile. Default is False.</p></li>
-<li><p>isGeojson: whether to save the output as geojson. Default is True.</p></li>
-<li><p>isCsv: whether to save the output as csv. Default is True.</p></li>
+<li><dl class="simple">
+<dt>link_geom can be provided as a WKT string or as a Shapely LineString or MultiLineString object.</dt><dd><p>If a MultiLineString is provided, it will be merged into a single LineString if possible.</p>
+</dd>
+</dl>
+</li>
+<li><p>If the distance is negative, it will be treated as 0 (the start point).</p></li>
+<li><p>If the distance exceeds the total length of the line, the last point of the line will be returned.</p></li>
+<li><p>The function uses geodesic calculations to account for the curvature of the Earth, ensuring accurate distance measurements in WGS84 coordinates.</p></li>
 </ul>
 <p class="rubric">Example</p>
 <div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">path_vissim_inpx</span> <span class="o">=</span> <span class="s2">&quot;path/to/vissim.inpx&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;path/to/output&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the inpx data as a dictionary without saving any output files</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">inpx_dict</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the inpx data and save csv and geojson files (default) to the output_dir.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">inpx_dict</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the inpx data and control the output file format by setting isShp, isGeojson and isCsv parameters.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">inpx_dict</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isCsv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">link_wkt</span> <span class="o">=</span> <span class="s2">&quot;LINESTRING (-111.935 33.421, -111.934 33.422, -111.933 33.423)&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">distance_in_meters</span> <span class="o">=</span> <span class="mi">120</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Get the point on the line at the specified distance.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">pt</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">point_on_wkt_line_by_distance</span><span class="p">(</span><span class="n">link_wkt</span><span class="p">,</span> <span class="n">distance_in_meters</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="p">)</span>         <span class="c1"># POINT (lon lat)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">wkt</span><span class="p">)</span>     <span class="c1"># WKT format</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="nb">print</span><span class="p">(</span><span class="n">pt</span><span class="o">.</span><span class="n">x</span><span class="p">,</span> <span class="n">pt</span><span class="o">.</span><span class="n">y</span><span class="p">)</span>  <span class="c1"># longitude, latitude</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>the inpx data as a dictionary.</p>
+<dd class="field-odd"><p>A Shapely Point object representing the location on the line at the specified distance.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>dict</p>
+<dd class="field-even"><p>Point</p>
+</dd>
+<dt class="field-odd">Raises<span class="colon">:</span></dt>
+<dd class="field-odd"><p><strong>ValueError</strong> – If the input WKT is not a valid LINESTRING or mergeable MULTILINESTRING, or if the distance is negative or exceeds the line length.</p>
 </dd>
 </dl>
 </dd></dl>
@@ -151,8 +154,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="vissim2gmns.VISSIM2GMNS.html" class="btn btn-neutral float-left" title="vissim2gmns.VISSIM2GMNS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="vissim2gmns.func_lib.vissim_fzp.html" class="btn btn-neutral float-right" title="vissim2gmns.func_lib.vissim_fzp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="vissim2gmns.func_lib.create_lane_geometries.html" class="btn btn-neutral float-left" title="vissim2gmns.func_lib.create_lane_geometries" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../support.html" class="btn btn-neutral float-right" title="Citation Request" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

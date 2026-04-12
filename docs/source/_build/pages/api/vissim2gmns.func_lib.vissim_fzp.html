@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../../_static/vissim2gmns.ico"/>
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../_static/documentation_options.js?v=674ce552"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -61,6 +61,8 @@
 </li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_fhz.html">vissim2gmns.func_lib.vissim_fhz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.create_lane_geometries.html">vissim2gmns.func_lib.create_lane_geometries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.point_on_wkt_line_by_distance.html">vissim2gmns.func_lib.point_on_wkt_line_by_distance</a></li>
 </ul>
 </li>
 </ul>
@@ -129,10 +131,15 @@
 <span class="gp">&gt;&gt;&gt; </span><span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;./output&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">x_col_name</span> <span class="o">=</span> <span class="s2">&quot;POS&quot;</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">y_col_name</span> <span class="o">=</span> <span class="s2">&quot;POSLAT&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">)</span> <span class="c1"># get the fzp data as a geopandas dataframe without saving to file.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span> <span class="c1"># get fzp data and save shp files to the output_dir.</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the fzp data as a geopandas dataframe without saving to file.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the fzp data as a geopandas dataframe and save shp files (default) to the output_dir.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="c1"># get the fzp data as a geopandas dataframe and control the output file format by setting isShp, isGeojson and isCsv parameters.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isCsv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span>   <span class="c1"># get fzp data and save csv, geojson and shapefile to the output_dir.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">

@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../../_static/vissim2gmns.ico"/>
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../../_static/documentation_options.js?v=674ce552"></script>
       <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -23,7 +23,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Citation Request" href="../support.html" />
+    <link rel="next" title="vissim2gmns.func_lib.create_lane_geometries" href="vissim2gmns.func_lib.create_lane_geometries.html" />
     <link rel="prev" title="vissim2gmns.func_lib.vissim_fhz" href="vissim2gmns.func_lib.vissim_fhz.html" /> 
 </head>
 
@@ -61,6 +61,8 @@
 <li class="toctree-l4"><a class="reference internal" href="#vissim2gmns.func_lib.cvt_vissim_to_wgs1984"><code class="docutils literal notranslate"><span class="pre">cvt_vissim_to_wgs1984()</span></code></a></li>
 </ul>
 </li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.create_lane_geometries.html">vissim2gmns.func_lib.create_lane_geometries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.point_on_wkt_line_by_distance.html">vissim2gmns.func_lib.point_on_wkt_line_by_distance</a></li>
 </ul>
 </li>
 </ul>
@@ -128,6 +130,7 @@ with a reference to a background position in Mercator coordinates.</p>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># Convert VISSIM coordinates to WGS 1984 coordinates.</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">cvt_vissim_to_wgs1842</span><span class="p">(</span><span class="n">x_vissim</span><span class="p">,</span> <span class="n">y_vissim</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="c1"># return the converted coordinate in WGS 1984, [Longitude, Latitude]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="p">(</span><span class="o">-</span><span class="mf">77.036870</span><span class="p">,</span> <span class="mf">38.907192</span><span class="p">)</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -147,7 +150,7 @@ with a reference to a background position in Mercator coordinates.</p>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="vissim2gmns.func_lib.vissim_fhz.html" class="btn btn-neutral float-left" title="vissim2gmns.func_lib.vissim_fhz" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../support.html" class="btn btn-neutral float-right" title="Citation Request" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="vissim2gmns.func_lib.create_lane_geometries.html" class="btn btn-neutral float-right" title="vissim2gmns.func_lib.create_lane_geometries" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

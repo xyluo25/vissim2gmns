@@ -23,11 +23,11 @@ warnings.filterwarnings("ignore", category=RuntimeWarning)
 warnings.filterwarnings("ignore", category=UserWarning)
 
 try:
-    from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
+    # from .geocoding_vissim_coord import cvt_vissim_to_wgs1984
     from .cvt_inpx import vissim_inpx
     from .link_projection import point_on_wkt_line_by_distance
 except ImportError:
-    from geocoding_vissim_coord import cvt_vissim_to_wgs1984
+    # from geocoding_vissim_coord import cvt_vissim_to_wgs1984
     from cvt_inpx import vissim_inpx
     from link_projection import point_on_wkt_line_by_distance
 
@@ -69,10 +69,15 @@ def vissim_fzp(path_vissim_fzp: str,
         >>> output_dir = "./output"
         >>> x_col_name = "POS"
         >>> y_col_name = "POSLAT"
-        >>> df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx) # get the fzp data as a geopandas dataframe without saving to file.
-        >>> df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx, output_dir=output_dir) # get fzp data and save shp files to the output_dir.
+        >>>
+        >>> # get the fzp data as a geopandas dataframe without saving to file.
+        >>> df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx)
+        >>>
+        >>> # get the fzp data as a geopandas dataframe and save shp files (default) to the output_dir.
+        >>> df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx, output_dir=output_dir)
+        >>>
+        >>> # get the fzp data as a geopandas dataframe and control the output file format by setting isShp, isGeojson and isCsv parameters.
         >>> df_fzp = vg.vissim_fzp(path_vissim_fzp, path_vissim_inpx, output_dir=output_dir, isShp=True, isGeojson=True, isCsv=True)
-        >>>    # get fzp data and save csv, geojson and shapefile to the output_dir.
 
     Returns:
         GeoDataFrame: converted geopandas dataframe.

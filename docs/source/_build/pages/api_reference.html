@@ -15,7 +15,7 @@
     <link rel="shortcut icon" href="../_static/vissim2gmns.ico"/>
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
-      <script src="../_static/documentation_options.js?v=1cd648e3"></script>
+      <script src="../_static/documentation_options.js?v=674ce552"></script>
       <script src="../_static/doctools.js?v=fd6eb6e6"></script>
       <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
@@ -61,6 +61,8 @@
 <li class="toctree-l3"><a class="reference internal" href="api/vissim2gmns.func_lib.vissim_fzp.html">vissim2gmns.func_lib.vissim_fzp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/vissim2gmns.func_lib.vissim_fhz.html">vissim2gmns.func_lib.vissim_fhz</a></li>
 <li class="toctree-l3"><a class="reference internal" href="api/vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/vissim2gmns.func_lib.create_lane_geometries.html">vissim2gmns.func_lib.create_lane_geometries</a></li>
+<li class="toctree-l3"><a class="reference internal" href="api/vissim2gmns.func_lib.point_on_wkt_line_by_distance.html">vissim2gmns.func_lib.point_on_wkt_line_by_distance</a></li>
 </ul>
 </li>
 </ul>
@@ -103,7 +105,7 @@
 <table class="autosummary longtable docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p><a class="reference internal" href="api/vissim2gmns.VISSIM2GMNS.html#vissim2gmns.VISSIM2GMNS" title="vissim2gmns.VISSIM2GMNS"><code class="xref py py-obj docutils literal notranslate"><span class="pre">VISSIM2GMNS</span></code></a>(input_dir, *[, x_col_name, ...])</p></td>
-<td><p>A tool to convert vissim files to geojson and csv.</p></td>
+<td><p>A tool to convert vissim files to csv, geojson and shp files.</p></td>
 </tr>
 </tbody>
 </table>
@@ -123,6 +125,12 @@
 </tr>
 <tr class="row-even"><td><p><a class="reference internal" href="api/vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html#vissim2gmns.func_lib.cvt_vissim_to_wgs1984" title="vissim2gmns.func_lib.cvt_vissim_to_wgs1984"><code class="xref py py-obj docutils literal notranslate"><span class="pre">func_lib.cvt_vissim_to_wgs1984</span></code></a>(x_vissim, ...)</p></td>
 <td><p>Convert single coordinate from VISSIM to WGS 1984.</p></td>
+</tr>
+<tr class="row-odd"><td><p><a class="reference internal" href="api/vissim2gmns.func_lib.create_lane_geometries.html#vissim2gmns.func_lib.create_lane_geometries" title="vissim2gmns.func_lib.create_lane_geometries"><code class="xref py py-obj docutils literal notranslate"><span class="pre">func_lib.create_lane_geometries</span></code></a>(...)</p></td>
+<td><p>Create lane centerline geometries from a link geometry.</p></td>
+</tr>
+<tr class="row-even"><td><p><a class="reference internal" href="api/vissim2gmns.func_lib.point_on_wkt_line_by_distance.html#vissim2gmns.func_lib.point_on_wkt_line_by_distance" title="vissim2gmns.func_lib.point_on_wkt_line_by_distance"><code class="xref py py-obj docutils literal notranslate"><span class="pre">func_lib.point_on_wkt_line_by_distance</span></code></a>(...)</p></td>
+<td><p>Generate a WGS84 point on a line at a given distance from the start.</p></td>
 </tr>
 </tbody>
 </table>
