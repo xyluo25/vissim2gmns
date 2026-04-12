@@ -22,6 +22,11 @@ warnings.filterwarnings("ignore", category=UserWarning)
 class VISSIM2GMNS:
     """A tool to convert vissim files to csv, geojson and shp files.
 
+    Args:
+        input_dir (str): the folder or file path to the vissim file
+        x_col_name (str): the longitude column name in fzp file to convert fzp file to geojson. Defaults to "POS".
+        y_col_name (str): the latitude column name in fzp file to convert fzp file to geojson. Defaults to "POSLAT".
+
     Notes:
         - convert .inpx file to geopandas dataframe and csv/geojson/shp file
         - convert .fzp file to geopandas dataframe and csv/geojson/shp file
@@ -35,10 +40,6 @@ class VISSIM2GMNS:
         >>> vissim = VISSIM2GMNS("./vissim_data/dir")
         >>> vissim.vissim_to_gmns()
 
-    Args:
-        vissim_file_path (str): the folder or file path to the vissim file
-        x_col_name (str): the longitude column name in fzp file to convert fzp file to geojson. Defaults to "POS".
-        y_col_name (str): the latitude column name in fzp file to convert fzp file to geojson. Defaults to "POSLAT".
     """
 
     def __init__(self,
