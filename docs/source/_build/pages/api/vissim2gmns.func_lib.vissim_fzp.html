@@ -7,8 +7,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>vissim2gmns.func_lib.vissim_fzp &mdash; vissim2gmns</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
 
   
@@ -16,8 +16,8 @@
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
@@ -54,13 +54,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api_reference.html#vissim2gmns-class">VISSIM2GMNS Class</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api_reference.html#function-library">Function Library</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_inpx.html">vissim2gmns.func_lib.vissim_inpx</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">vissim2gmns.func_lib.vissim_fzp</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#vissim2gmns.func_lib.vissim_fzp"><code class="docutils literal notranslate"><span class="pre">vissim_fzp()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_fhz.html">vissim2gmns.func_lib.vissim_fhz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
 </ul>
 </li>
 </ul>
@@ -101,32 +101,38 @@
 <h1>vissim2gmns.func_lib.vissim_fzp<a class="headerlink" href="#vissim2gmns-func-lib-vissim-fzp" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="vissim2gmns.func_lib.vissim_fzp">
-<span class="sig-prename descclassname"><span class="pre">vissim2gmns.func_lib.</span></span><span class="sig-name descname"><span class="pre">vissim_fzp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_vissim_fzp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_refmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_refmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_refnet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_refnet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'POS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'POSLAT'</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="reference internal" href="../../_modules/vissim2gmns/func_lib/cvt_fzp.html#vissim_fzp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.func_lib.vissim_fzp" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">vissim2gmns.func_lib.</span></span><span class="sig-name descname"><span class="pre">vissim_fzp</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_vissim_fzp</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">path_vissim_inpx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'POS'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_col_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">'POSLAT'</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="reference internal" href="../../_modules/vissim2gmns/func_lib/cvt_fzp.html#vissim_fzp"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.func_lib.vissim_fzp" title="Link to this definition"></a></dt>
 <dd><p>Convert vissim fzp file to geopandas dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_vissim_fzp</strong> (<em>str</em>) – the path to the vissim fzp file.</p></li>
-<li><p><strong>x_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map (Mercator).</p></li>
-<li><p><strong>y_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map (Mercator).</p></li>
-<li><p><strong>x_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network (Cartesian Vissim System).</p></li>
-<li><p><strong>y_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network (Cartesian Vissim System).</p></li>
+<li><p><strong>path_vissim_inpx</strong> (<em>str</em>) – the path to the vissim inpx file.</p></li>
 <li><p><strong>x_col_name</strong> (<em>str</em>) – the longitude column name in fzp file to convert fzp file to geojson.</p></li>
 <li><p><strong>y_col_name</strong> (<em>str</em>) – the latitude column name in fzp file to convert fzp file to geojson.</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em>) – the directory to save the output files. Defaults to “”.</p></li>
+<li><p><strong>**kwargs</strong> – other parameters for the conversion, such as isShp, isGeojson, isCsv.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>output_dir: if not provide no data will be saved.</p></li>
+<li><p>isShp: whether to save the output as shapefile. Default is False.</p></li>
+<li><p>isGeojson: whether to save the output as geojson. Default is False.</p></li>
+<li><p>isCsv: whether to save the output as csv. Default is True.</p></li>
+</ul>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">path_vissim_fzp</span> <span class="o">=</span> <span class="s2">&quot;./vissim_data/xl_002_001.fzp&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_refmap</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9772674.016</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refmap</span> <span class="o">=</span> <span class="mf">5317775.409</span>   <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>            <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Save the results to geojson and csv files.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;vissim_fzp.geojson&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;vissim_fzp.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">path_vissim_inpx</span> <span class="o">=</span> <span class="s2">&quot;./vissim_data/xl_002_001.inpx&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;./output&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">x_col_name</span> <span class="o">=</span> <span class="s2">&quot;POS&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">y_col_name</span> <span class="o">=</span> <span class="s2">&quot;POSLAT&quot;</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">)</span> <span class="c1"># get the fzp data as a geopandas dataframe without saving to file.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span> <span class="c1"># get fzp data and save shp files to the output_dir.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_vissim_fzp</span><span class="p">,</span> <span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isCsv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>   <span class="c1"># get fzp data and save csv, geojson and shapefile to the output_dir.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
@@ -152,7 +158,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 - 2025 Xiangyong Luo.</p>
+    <p>&#169; Copyright 2022 - 2026 Xiangyong Luo.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

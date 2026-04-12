@@ -7,8 +7,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>vissim2gmns.func_lib.vissim_inpx &mdash; vissim2gmns</title>
-      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
 
   
@@ -16,15 +16,15 @@
       <script src="../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../_static/documentation_options.js?v=1cd648e3"></script>
-      <script src="../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="vissim2gmns.func_lib.vissim_fzp" href="vissim2gmns.func_lib.vissim_fzp.html" />
-    <link rel="prev" title="vissim2gmns.func_lib.cvt_vissim_to_wgs1984" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html" /> 
+    <link rel="prev" title="vissim2gmns.VISSIM2GMNS" href="vissim2gmns.VISSIM2GMNS.html" /> 
 </head>
 
 <body class="wy-body-for-nav"> 
@@ -54,13 +54,13 @@
 <li class="toctree-l1 current"><a class="reference internal" href="../api_reference.html">API Reference</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="../api_reference.html#vissim2gmns-class">VISSIM2GMNS Class</a></li>
 <li class="toctree-l2 current"><a class="reference internal" href="../api_reference.html#function-library">Function Library</a><ul class="current">
-<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
 <li class="toctree-l3 current"><a class="current reference internal" href="#">vissim2gmns.func_lib.vissim_inpx</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#vissim2gmns.func_lib.vissim_inpx"><code class="docutils literal notranslate"><span class="pre">vissim_inpx()</span></code></a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_fzp.html">vissim2gmns.func_lib.vissim_fzp</a></li>
 <li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.vissim_fhz.html">vissim2gmns.func_lib.vissim_fhz</a></li>
+<li class="toctree-l3"><a class="reference internal" href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html">vissim2gmns.func_lib.cvt_vissim_to_wgs1984</a></li>
 </ul>
 </li>
 </ul>
@@ -101,42 +101,42 @@
 <h1>vissim2gmns.func_lib.vissim_inpx<a class="headerlink" href="#vissim2gmns-func-lib-vissim-inpx" title="Link to this heading"></a></h1>
 <dl class="py function">
 <dt class="sig sig-object py" id="vissim2gmns.func_lib.vissim_inpx">
-<span class="sig-prename descclassname"><span class="pre">vissim2gmns.func_lib.</span></span><span class="sig-name descname"><span class="pre">vissim_inpx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_vissim_inpx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_refmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_refmap</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">x_refnet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">y_refnet</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">float</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_fname</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">GeoDataFrame</span></span></span><a class="reference internal" href="../../_modules/vissim2gmns/func_lib/cvt_inpx.html#vissim_inpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.func_lib.vissim_inpx" title="Link to this definition"></a></dt>
+<span class="sig-prename descclassname"><span class="pre">vissim2gmns.func_lib.</span></span><span class="sig-name descname"><span class="pre">vissim_inpx</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path_vissim_inpx</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">output_dir</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">''</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">dict</span></span></span><a class="reference internal" href="../../_modules/vissim2gmns/func_lib/cvt_inpx.html#vissim_inpx"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#vissim2gmns.func_lib.vissim_inpx" title="Link to this definition"></a></dt>
 <dd><p>Convert vissim inpx file to geopandas dataframe.</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters<span class="colon">:</span></dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path_vissim_inpx</strong> (<em>str</em>) – the path to the vissim inpx file.</p></li>
-<li><p><strong>x_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map(Mercator). Defaults to -9772674.016.</p></li>
-<li><p><strong>y_refmap</strong> (<em>float</em>) – coordinates of the reference point of the background map(Mercator). Defaults to 5317775.409.</p></li>
-<li><p><strong>x_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</p></li>
-<li><p><strong>y_refnet</strong> (<em>int</em>) – coordinates of the reference point of the network(Cartesian Vissim System). Defaults to 0.</p></li>
-<li><p><strong>output_fname</strong> (<em>str</em>) – save results to GMNS formatted csv and geojson files. Defaults to “”.</p></li>
+<li><p><strong>output_dir</strong> (<em>str</em>) – the directory to save the output files. Defaults to “”.</p></li>
+<li><p><strong>**kwargs</strong> – other parameters for the conversion, such as isShp, isGeojson, isCsv.</p></li>
 </ul>
 </dd>
 </dl>
+<p class="rubric">Notes</p>
+<ul class="simple">
+<li><p>output_dir: if not provide no data will be saved.</p></li>
+<li><p>isShp: whether to save the output as shapefile. Default is False.</p></li>
+<li><p>isGeojson: whether to save the output as geojson. Default is True.</p></li>
+<li><p>isCsv: whether to save the output as csv. Default is True.</p></li>
+</ul>
 <p class="rubric">Example</p>
-<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">path_vissim_inpx</span> <span class="o">=</span> <span class="s2">&quot;path/to/vissim.inpx&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_refmap</span> <span class="o">=</span> <span class="o">-</span><span class="mf">9772674.016</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refmap</span> <span class="o">=</span> <span class="mf">5317775.409</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># You can get this value from VISSIM software.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">output_fname</span> <span class="o">=</span> <span class="s2">&quot;vissim_inpx&quot;</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_inpx</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_inpx</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;vissim_inpx.geojson&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_inpx</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;vissim_inpx.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># Or your can use the output_fname parameter to save the results.</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">df_inpx</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">,</span> <span class="n">output_fname</span><span class="o">=</span><span class="n">output_fname</span><span class="p">)</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="c1"># df_inpx will be saved as &quot;vissim_inpx.csv&quot; and &quot;vissim_inpx.geojson&quot; in the output folder.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;path/to/output&quot;</span>
+</pre></div>
+</div>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">inpx_dict</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">)</span>  <span class="c1"># get the inpx data as a dictionary</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inpx_dict</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span> <span class="c1"># get inpx data and save csv and geojson files to the output_dir.</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">inpx_dict</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_vissim_inpx</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">isCsv</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span>    <span class="c1"># get inpx data and save csv, geojson and shapefile to the output_dir.</span>
 </pre></div>
 </div>
 <dl class="field-list simple">
 <dt class="field-odd">Returns<span class="colon">:</span></dt>
-<dd class="field-odd"><p>converted geopandas dataframe.</p>
+<dd class="field-odd"><p>the inpx data as a dictionary.</p>
 </dd>
 <dt class="field-even">Return type<span class="colon">:</span></dt>
-<dd class="field-even"><p>GeoDataFrame</p>
+<dd class="field-even"><p>dict</p>
 </dd>
 </dl>
 </dd></dl>
@@ -147,14 +147,14 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="vissim2gmns.func_lib.cvt_vissim_to_wgs1984.html" class="btn btn-neutral float-left" title="vissim2gmns.func_lib.cvt_vissim_to_wgs1984" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="vissim2gmns.VISSIM2GMNS.html" class="btn btn-neutral float-left" title="vissim2gmns.VISSIM2GMNS" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="vissim2gmns.func_lib.vissim_fzp.html" class="btn btn-neutral float-right" title="vissim2gmns.func_lib.vissim_fzp" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 - 2025 Xiangyong Luo.</p>
+    <p>&#169; Copyright 2022 - 2026 Xiangyong Luo.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

@@ -7,8 +7,8 @@
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Quick Start Guide &mdash; vissim2gmns</title>
-      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../_static/copybutton.css?v=76b2166b" />
 
   
@@ -16,8 +16,8 @@
       <script src="../_static/jquery.js?v=5d32c60e"></script>
       <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../_static/documentation_options.js?v=1cd648e3"></script>
-      <script src="../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../_static/copybutton.js?v=f281be69"></script>
     <script src="../_static/js/theme.js"></script>
@@ -54,9 +54,10 @@
 <li class="toctree-l2"><a class="reference internal" href="#quick-python-example">Quick Python Example</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prepare-your-input-file">Prepare your Input file</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#automatically-convert-inpx-fzp-fhz-to-gmns-format">Automatically Convert .inpx, .fzp, .fhz to GMNS Format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#convert-vissim-inpx-to-gmns-format">Convert VISSIM inpx to GMNS Format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#convert-vissim-fzp-to-gmns-format">Convert VISSIM .fzp to GMNS Format</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#convert-vissim-fhz-to-gmns-format">Convert VISSIM .fhz to GMNS Format</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#control-output-files">Control output files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-single-file-inpx-to-csv-geojson-and-shp-files">Convert Single File: .inpx to .csv, .geojson and shp files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-single-file-fzp-to-csv-geojson-and-shp-files">Convert Single File: .fzp to .csv, .geojson and shp files</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#convert-single-file-fhz-to-csv-file">Convert Single File: .fhz to .csv file</a></li>
 </ul>
 </li>
 </ul>
@@ -105,7 +106,7 @@
 </div>
 <section id="prepare-your-input-file">
 <h3>Prepare your Input file<a class="headerlink" href="#prepare-your-input-file" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="linenos">2</span>
 <span class="linenos">3</span><span class="n">input_dir</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/&quot;</span>
 </pre></div>
@@ -113,79 +114,89 @@
 </section>
 <section id="automatically-convert-inpx-fzp-fhz-to-gmns-format">
 <h3>Automatically Convert .inpx, .fzp, .fhz to GMNS Format<a class="headerlink" href="#automatically-convert-inpx-fzp-fhz-to-gmns-format" title="Link to this heading"></a></h3>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="linenos"> 2</span>
 <span class="linenos"> 3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 <span class="linenos"> 4</span>
 <span class="linenos"> 5</span>    <span class="n">input_dir</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/&quot;</span>  <span class="c1"># Path to your input directory</span>
 <span class="linenos"> 6</span>
-<span class="linenos"> 7</span>    <span class="c1"># Prepare reference values from VISSIM,</span>
-<span class="linenos"> 8</span>    <span class="c1"># you need to update these values based on your VISSIM project</span>
-<span class="linenos"> 9</span>    <span class="n">x_refmap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">10</span>    <span class="n">y_refmap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">11</span>    <span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">12</span>    <span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">13</span>
-<span class="linenos">14</span>    <span class="n">net</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">VISSIM2GMNS</span><span class="p">(</span><span class="n">input_dir</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
-<span class="linenos">15</span>    <span class="n">net</span><span class="o">.</span><span class="n">vissim_to_gmns</span><span class="p">()</span>
+<span class="linenos"> 7</span>    <span class="n">vissim</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">VISSIM2GMNS</span><span class="p">(</span><span class="n">input_dir</span><span class="p">)</span>
+<span class="linenos"> 8</span>    <span class="c1"># results will be saved in the same input directory by default.</span>
+<span class="linenos"> 9</span>    <span class="n">vissim</span><span class="o">.</span><span class="n">vissim_to_gmns</span><span class="p">()</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="c1"># if you want to specify the output directory, you can use the following code:</span>
+<span class="linenos">12</span>    <span class="c1"># output_dir = &quot;path/to/your/output/directory/&quot;</span>
+<span class="linenos">13</span>    <span class="c1"># net.vissim_to_gmns(output_dir=output_dir)</span>
 </pre></div>
 </div>
 </section>
-<section id="convert-vissim-inpx-to-gmns-format">
-<h3>Convert VISSIM inpx to GMNS Format<a class="headerlink" href="#convert-vissim-inpx-to-gmns-format" title="Link to this heading"></a></h3>
-<p>If you want to convert VISSIM inpx to GMNS format, you can use the following code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<section id="control-output-files">
+<h3>Control output files<a class="headerlink" href="#control-output-files" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="linenos"> 2</span>
-<span class="linenos"> 3</span><span class="n">path_inpx</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/xl_002_001.inpx&quot;</span>  <span class="c1"># Path to your inpx file</span>
+<span class="linenos"> 3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
 <span class="linenos"> 4</span>
-<span class="linenos"> 5</span><span class="c1"># Prepare reference values from VISSIM,</span>
-<span class="linenos"> 6</span><span class="c1"># you need to update these values based on your VISSIM project</span>
-<span class="linenos"> 7</span><span class="n">x_refmap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 8</span><span class="n">y_refmap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 9</span><span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">10</span><span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">11</span>
-<span class="linenos">12</span><span class="n">df_inpx</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">path_inpx</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
-<span class="linenos">13</span>
-<span class="linenos">14</span><span class="c1"># Save the dataframe to csv and geojson files</span>
-<span class="linenos">15</span><span class="n">df_inpx</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;inpx.geojson&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
-<span class="linenos">16</span><span class="n">df_inpx</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;inpx.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos"> 5</span>    <span class="n">input_dir</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/&quot;</span>  <span class="c1"># Path to your input directory</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="n">vissim</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">VISSIM2GMNS</span><span class="p">(</span><span class="n">input_dir</span><span class="p">)</span>
+<span class="linenos"> 8</span>
+<span class="linenos"> 9</span>    <span class="n">isCsv</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Set to True if you want to save the output as csv files</span>
+<span class="linenos">10</span>    <span class="n">isGeojson</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Set to True if you want to save the output as geojson files</span>
+<span class="linenos">11</span>    <span class="n">isShp</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Set to True if you want to save the output as shp files</span>
+<span class="linenos">12</span>
+<span class="linenos">13</span>    <span class="n">vissim</span><span class="o">.</span><span class="n">vissim_to_gmns</span><span class="p">(</span><span class="n">isCsv</span><span class="o">=</span><span class="n">isCsv</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="n">isGeojson</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="n">isShp</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="convert-vissim-fzp-to-gmns-format">
-<h3>Convert VISSIM .fzp to GMNS Format<a class="headerlink" href="#convert-vissim-fzp-to-gmns-format" title="Link to this heading"></a></h3>
-<p>If you want to convert VISSIM .fzp to GMNS format, you can use the following code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<section id="convert-single-file-inpx-to-csv-geojson-and-shp-files">
+<h3>Convert Single File: .inpx to .csv, .geojson and shp files<a class="headerlink" href="#convert-single-file-inpx-to-csv-geojson-and-shp-files" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="linenos"> 2</span>
-<span class="linenos"> 3</span><span class="n">path_fzp</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/xl_002_001.fzp&quot;</span>  <span class="c1"># Path to your fhz file</span>
-<span class="linenos"> 4</span>
-<span class="linenos"> 5</span><span class="c1"># Prepare reference values from VISSIM,</span>
-<span class="linenos"> 6</span><span class="c1"># you need to update these values based on your VISSIM project</span>
-<span class="linenos"> 7</span><span class="n">x_refmap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 8</span><span class="n">y_refmap</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos"> 9</span><span class="n">x_refnet</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">10</span><span class="n">y_refnet</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="linenos">11</span>
-<span class="linenos">12</span><span class="n">df_fzp</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">path_fzp</span><span class="p">,</span> <span class="n">x_refmap</span><span class="p">,</span> <span class="n">y_refmap</span><span class="p">,</span> <span class="n">x_refnet</span><span class="p">,</span> <span class="n">y_refnet</span><span class="p">)</span>
-<span class="linenos">13</span>
-<span class="linenos">14</span><span class="c1"># Save the dataframe to csv and geojson files</span>
-<span class="linenos">15</span><span class="n">df_fzp</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;fzp.geojson&quot;</span><span class="p">,</span> <span class="n">driver</span><span class="o">=</span><span class="s2">&quot;GeoJSON&quot;</span><span class="p">)</span>
-<span class="linenos">16</span><span class="n">df_fzp</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;fhz.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos"> 3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="linenos"> 4</span>    <span class="n">inpx_file</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/Net.inpx&quot;</span>  <span class="c1"># Path to your .inpx file</span>
+<span class="linenos"> 5</span>    <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/output/&quot;</span>  <span class="c1"># Path to your output directory</span>
+<span class="linenos"> 6</span>
+<span class="linenos"> 7</span>    <span class="c1"># this will convert to geojson file by default</span>
+<span class="linenos"> 8</span>    <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">inpx_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+<span class="linenos"> 9</span>
+<span class="linenos">10</span>    <span class="c1"># if you want to specify the output file format, you can use the following code:</span>
+<span class="linenos">11</span>    <span class="n">isCsv</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Set to True if you want to save the output as csv files</span>
+<span class="linenos">12</span>    <span class="n">isGeojson</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Set to True if you want to save the output as geojson files</span>
+<span class="linenos">13</span>    <span class="n">isShp</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Set to True if you want to save the output as shp files</span>
+<span class="linenos">14</span>    <span class="n">vg</span><span class="o">.</span><span class="n">vissim_inpx</span><span class="p">(</span><span class="n">inpx_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">isCsv</span><span class="o">=</span><span class="n">isCsv</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="n">isGeojson</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="n">isShp</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
-<section id="convert-vissim-fhz-to-gmns-format">
-<h3>Convert VISSIM .fhz to GMNS Format<a class="headerlink" href="#convert-vissim-fhz-to-gmns-format" title="Link to this heading"></a></h3>
-<p>If you want to convert VISSIM .fhz to GMNS format, you can use the following code:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span><span class="w"> </span><span class="nn">vissim2gmns</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">vg</span>
+<section id="convert-single-file-fzp-to-csv-geojson-and-shp-files">
+<h3>Convert Single File: .fzp to .csv, .geojson and shp files<a class="headerlink" href="#convert-single-file-fzp-to-csv-geojson-and-shp-files" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos"> 1</span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
+<span class="linenos"> 2</span>
+<span class="linenos"> 3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="linenos"> 4</span>    <span class="n">inpx_file</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/Net.inpx&quot;</span>  <span class="c1"># Path to your .inpx file</span>
+<span class="linenos"> 5</span>    <span class="n">fzp_file</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/Net.fzp&quot;</span>  <span class="c1"># Path to your .fzp file</span>
+<span class="linenos"> 6</span>    <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/output/&quot;</span>  <span class="c1"># Path to your output directory</span>
+<span class="linenos"> 7</span>
+<span class="linenos"> 8</span>    <span class="c1"># this will convert to geojson file by default</span>
+<span class="linenos"> 9</span>    <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">fzp_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
+<span class="linenos">10</span>
+<span class="linenos">11</span>    <span class="c1"># if you want to specify the output file format, you can use the following code:</span>
+<span class="linenos">12</span>    <span class="n">isCsv</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Set to True if you want to save the output as csv files</span>
+<span class="linenos">13</span>    <span class="n">isGeojson</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Set to True if you want to save the output as geojson files</span>
+<span class="linenos">14</span>    <span class="n">isShp</span> <span class="o">=</span> <span class="kc">False</span>  <span class="c1"># Set to True if you want to save the output as shp files</span>
+<span class="linenos">15</span>    <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fzp</span><span class="p">(</span><span class="n">fzp_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">,</span> <span class="n">isCsv</span><span class="o">=</span><span class="n">isCsv</span><span class="p">,</span> <span class="n">isGeojson</span><span class="o">=</span><span class="n">isGeojson</span><span class="p">,</span> <span class="n">isShp</span><span class="o">=</span><span class="n">isShp</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
+<section id="convert-single-file-fhz-to-csv-file">
+<h3>Convert Single File: .fhz to .csv file<a class="headerlink" href="#convert-single-file-fhz-to-csv-file" title="Link to this heading"></a></h3>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="linenos">1</span><span class="kn">import</span> <span class="nn">vissim2gmns</span> <span class="k">as</span> <span class="nn">vg</span>
 <span class="linenos">2</span>
-<span class="linenos">3</span><span class="n">path_fhz</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/xl_002_001.fhz&quot;</span>  <span class="c1"># Path to your fhz file</span>
-<span class="linenos">4</span>
-<span class="linenos">5</span><span class="n">df_fhz</span> <span class="o">=</span> <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fhz</span><span class="p">(</span><span class="n">path_fhz</span><span class="p">)</span>
+<span class="linenos">3</span><span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+<span class="linenos">4</span>    <span class="n">fhz_file</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/Net.fhz&quot;</span>  <span class="c1"># Path to your .fhz file</span>
+<span class="linenos">5</span>    <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;datasets/one_intersection/output/&quot;</span>  <span class="c1"># Path to your output directory</span>
 <span class="linenos">6</span>
-<span class="linenos">7</span><span class="c1"># Save the dataframe to csv file</span>
-<span class="linenos">8</span><span class="n">df_fhz</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="s2">&quot;fhz.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="linenos">7</span>    <span class="c1"># this will convert to csv file by default</span>
+<span class="linenos">8</span>    <span class="n">vg</span><span class="o">.</span><span class="n">vissim_fhz</span><span class="p">(</span><span class="n">fhz_file</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
 </pre></div>
 </div>
 </section>
@@ -203,7 +214,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 - 2025 Xiangyong Luo.</p>
+    <p>&#169; Copyright 2022 - 2026 Xiangyong Luo.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a

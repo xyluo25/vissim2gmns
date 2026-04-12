@@ -1,0 +1,11 @@
+{
+"type": "FeatureCollection",
+"name": "xl_002_001_inpx_lanes",
+"crs": { "type": "name", "properties": { "name": "urn:ogc:def:crs:OGC:1.3:CRS84" } },
+"features": [
+{ "type": "Feature", "properties": { "@width": "3", "link_id": "1", "lane_index": 1, "lane_id": "1_1" }, "geometry": { "type": "LineString", "coordinates": [ [ -87.887768872350222, 43.077217620032044 ], [ -87.887751750199016, 43.07784572604794 ], [ -87.887739472137298, 43.078296128364592 ] ] } },
+{ "type": "Feature", "properties": { "@width": "3", "link_id": "2", "lane_index": 1, "lane_id": "2_1" }, "geometry": { "type": "LineString", "coordinates": [ [ -87.887776401284754, 43.078296665454076 ], [ -87.887788679346471, 43.077846263141339 ], [ -87.887805801497692, 43.077218157130964 ] ] } },
+{ "type": "Feature", "properties": { "@width": "3", "link_id": "3", "lane_index": 1, "lane_id": "3_1" }, "geometry": { "type": "LineString", "coordinates": [ [ -87.886601827630386, 43.077655229462607 ], [ -87.888398141441527, 43.077651564436955 ] ] } },
+{ "type": "Feature", "properties": { "@width": "3", "link_id": "4", "lane_index": 1, "lane_id": "4_1" }, "geometry": { "type": "LineString", "coordinates": [ [ -87.888398038267439, 43.077624585079157 ], [ -87.886601724456284, 43.077628250106436 ] ] } }
+]
+}

@@ -31,79 +31,92 @@ Automatically Convert .inpx, .fzp, .fhz to GMNS Format
 
         input_dir = "datasets/one_intersection/"  # Path to your input directory
 
-        # Prepare reference values from VISSIM,
-        # you need to update these values based on your VISSIM project
-        x_refmap = 0
-        y_refmap = 0
-        x_refnet = 0
-        y_refnet = 0
+        vissim = vg.VISSIM2GMNS(input_dir)
+        # results will be saved in the same input directory by default.
+        vissim.vissim_to_gmns()
 
-        net = vg.VISSIM2GMNS(input_dir, x_refmap, y_refmap, x_refnet, y_refnet)
-        net.vissim_to_gmns()
+        # if you want to specify the output directory, you can use the following code:
+        # output_dir = "path/to/your/output/directory/"
+        # net.vissim_to_gmns(output_dir=output_dir)
 
-Convert VISSIM inpx to GMNS Format
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-If you want to convert VISSIM inpx to GMNS format, you can use the following code:
+Control output files
+~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
     :linenos:
 
     import vissim2gmns as vg
 
-    path_inpx = "datasets/one_intersection/xl_002_001.inpx"  # Path to your inpx file
+    if __name__ == "__main__":
 
-    # Prepare reference values from VISSIM,
-    # you need to update these values based on your VISSIM project
-    x_refmap = 0
-    y_refmap = 0
-    x_refnet = 0
-    y_refnet = 0
+        input_dir = "datasets/one_intersection/"  # Path to your input directory
 
-    df_inpx = vg.vissim_inpx(path_inpx, x_refmap, y_refmap, x_refnet, y_refnet)
+        vissim = vg.VISSIM2GMNS(input_dir)
 
-    # Save the dataframe to csv and geojson files
-    df_inpx.to_file("inpx.geojson", driver="GeoJSON")
-    df_inpx.to_csv("inpx.csv", index=False)
+        isCsv = False  # Set to True if you want to save the output as csv files
+        isGeojson = True  # Set to True if you want to save the output as geojson files
+        isShp = False  # Set to True if you want to save the output as shp files
 
-Convert VISSIM .fzp to GMNS Format
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+        vissim.vissim_to_gmns(isCsv=isCsv, isGeojson=isGeojson, isShp=isShp)
 
-If you want to convert VISSIM .fzp to GMNS format, you can use the following code:
+
+Convert Single File: .inpx to .csv, .geojson and shp files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
     :linenos:
 
     import vissim2gmns as vg
 
-    path_fzp = "datasets/one_intersection/xl_002_001.fzp"  # Path to your fhz file
+    if __name__ == "__main__":
+        inpx_file = "datasets/one_intersection/Net.inpx"  # Path to your .inpx file
+        output_dir = "datasets/one_intersection/output/"  # Path to your output directory
 
-    # Prepare reference values from VISSIM,
-    # you need to update these values based on your VISSIM project
-    x_refmap = 0
-    y_refmap = 0
-    x_refnet = 0
-    y_refnet = 0
+        # this will convert to geojson file by default
+        vg.vissim_inpx(inpx_file, output_dir=output_dir)
 
-    df_fzp = vg.vissim_fzp(path_fzp, x_refmap, y_refmap, x_refnet, y_refnet)
+        # if you want to specify the output file format, you can use the following code:
+        isCsv = False  # Set to True if you want to save the output as csv files
+        isGeojson = True  # Set to True if you want to save the output as geojson files
+        isShp = False  # Set to True if you want to save the output as shp files
+        vg.vissim_inpx(inpx_file, output_dir=output_dir, isCsv=isCsv, isGeojson=isGeojson, isShp=isShp)
 
-    # Save the dataframe to csv and geojson files
-    df_fzp.to_file("fzp.geojson", driver="GeoJSON")
-    df_fzp.to_csv("fhz.csv", index=False)
 
-Convert VISSIM .fhz to GMNS Format
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-
-If you want to convert VISSIM .fhz to GMNS format, you can use the following code:
+Convert Single File: .fzp to .csv, .geojson and shp files
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: python
     :linenos:
 
     import vissim2gmns as vg
 
-    path_fhz = "datasets/one_intersection/xl_002_001.fhz"  # Path to your fhz file
+    if __name__ == "__main__":
+        inpx_file = "datasets/one_intersection/Net.inpx"  # Path to your .inpx file
+        fzp_file = "datasets/one_intersection/Net.fzp"  # Path to your .fzp file
+        output_dir = "datasets/one_intersection/output/"  # Path to your output directory
 
-    df_fhz = vg.vissim_fhz(path_fhz)
+        # this will convert to geojson file by default
+        vg.vissim_fzp(fzp_file, output_dir=output_dir)
 
-    # Save the dataframe to csv file
-    df_fhz.to_csv("fhz.csv", index=False)
+        # if you want to specify the output file format, you can use the following code:
+        isCsv = False  # Set to True if you want to save the output as csv files
+        isGeojson = True  # Set to True if you want to save the output as geojson files
+        isShp = False  # Set to True if you want to save the output as shp files
+        vg.vissim_fzp(fzp_file, output_dir=output_dir, isCsv=isCsv, isGeojson=isGeojson, isShp=isShp)
+
+
+Convert Single File: .fhz to .csv file
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: python
+    :linenos:
+
+    import vissim2gmns as vg
+
+    if __name__ == "__main__":
+        fhz_file = "datasets/one_intersection/Net.fhz"  # Path to your .fhz file
+        output_dir = "datasets/one_intersection/output/"  # Path to your output directory
+
+        # this will convert to csv file by default
+        vg.vissim_fhz(fhz_file, output_dir=output_dir)

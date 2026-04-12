@@ -6,8 +6,7 @@
 ##############################################################
 '''
 
-
-from typing import Tuple
+from loguru import logger
 from shapely import wkt
 from shapely.geometry import Point, LineString, MultiLineString
 from shapely.ops import linemerge
@@ -15,13 +14,13 @@ from pyproj import Geod
 
 
 def point_on_wkt_line_by_distance(
-    link_wkt: str,
+    link_geom: str | LineString | MultiLineString,
     distance_in_meters: float
 ) -> Point:
-    """Generate a WGS84 point on a WKT line at a given distance from the line start.
+    """Generate a WGS84 point on a line at a given distance from the start.
 
     Args:
-        link_wkt (str): WKT string representing a LINESTRING or mergeable MULTILINESTRING.
+        link_geom (str | LineString | MultiLineString): WKT string or Shapely geometry representing a LINESTRING or mergeable MULTILINESTRING.
         distance_in_meters (float): Distance along the line in meters from the start point.
 
     Returns:
@@ -32,9 +31,10 @@ def point_on_wkt_line_by_distance(
     """
 
     if distance_in_meters < 0:
-        raise ValueError("distance_in_meters must be >= 0.")
+        distance_in_meters = 0
+        logger.warning("Distance cannot be negative. Set to 0.")
 
-    geom = wkt.loads(link_wkt)
+    geom = wkt.loads(link_geom) if isinstance(link_geom, str) else link_geom
 
     # Support LINESTRING and mergeable MULTILINESTRING
     if isinstance(geom, MultiLineString):
@@ -70,9 +70,8 @@ def point_on_wkt_line_by_distance(
 
         accumulated += seg_len
 
-    raise ValueError(
-        f"distance_in_meters ({distance_in_meters}) is longer than the line length ({accumulated:.3f} m)."
-    )
+    # If distance exceeds total line length, return the last point
+    return Point(coords[-1])
 
 
 if __name__ == "__main__":

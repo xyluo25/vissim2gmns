@@ -10,7 +10,7 @@ You can install the latest stable release of the package at `PyPI`_ using `pip`_
     pip install vissim2gmns
 
 By running the command above, the vissim2gmns package along with required dependency packages
-(`pandas`_, `pyufunc`_, `geopandas`_, `shapely`_) will be installed to your computer (if they have not been installed yet).
+(`pandas`_, `pyufunc`_, `geopandas`_, `shapely`_, `xmltodict`_, `loguru`_) will be installed to your computer.
 
 
 .. _`PyPI`: https://pypi.org/project/osm2gmns
@@ -19,3 +19,5 @@ By running the command above, the vissim2gmns package along with required depend
 .. _`pandas`: https://pandas.pydata.org/
 .. _`geopandas`: https://geopandas.org/en/stable/
 .. _`shapely`: https://shapely.readthedocs.io/en/latest/index.html
+.. _`xmltodict`: https://github.com/martinblech/xmltodict
+.. _`loguru`: https://github.com/Delgan/loguru

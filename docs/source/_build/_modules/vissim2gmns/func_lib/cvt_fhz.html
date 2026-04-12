@@ -6,8 +6,8 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>vissim2gmns.func_lib.cvt_fhz &mdash; vissim2gmns</title>
-      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=03e43079" />
-      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/pygments.css?v=fa44fd50" />
+      <link rel="stylesheet" type="text/css" href="../../../_static/css/theme.css?v=9edc463e" />
       <link rel="stylesheet" type="text/css" href="../../../_static/copybutton.css?v=76b2166b" />
 
   
@@ -15,8 +15,8 @@
       <script src="../../../_static/jquery.js?v=5d32c60e"></script>
       <script src="../../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
       <script src="../../../_static/documentation_options.js?v=1cd648e3"></script>
-      <script src="../../../_static/doctools.js?v=9bcbadda"></script>
-      <script src="../../../_static/sphinx_highlight.js?v=dc90522c"></script>
+      <script src="../../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../../_static/sphinx_highlight.js?v=6ffebe34"></script>
       <script src="../../../_static/clipboard.min.js?v=a7894cd8"></script>
       <script src="../../../_static/copybutton.js?v=f281be69"></script>
     <script src="../../../_static/js/theme.js"></script>
@@ -89,24 +89,41 @@
 <span class="sd">##############################################################</span>
 <span class="sd">&#39;&#39;&#39;</span>
 
-<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
-<span class="kn">from</span><span class="w"> </span><span class="nn">pyufunc</span><span class="w"> </span><span class="kn">import</span> <span class="n">func_running_time</span>
+<span class="kn">from</span> <span class="nn">pathlib</span> <span class="kn">import</span> <span class="n">Path</span>
+<span class="kn">from</span> <span class="nn">loguru</span> <span class="kn">import</span> <span class="n">logger</span>
+
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">from</span> <span class="nn">pyufunc</span> <span class="kn">import</span> <span class="n">str_strip</span>
+
+
+<span class="k">def</span> <span class="nf">remove_stripe_values</span><span class="p">(</span><span class="n">value</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Remove stripe values from a string.&quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">value</span><span class="p">,</span> <span class="nb">str</span><span class="p">):</span>
+        <span class="k">return</span> <span class="p">(</span>
+            <span class="n">value</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">r&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">n&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;b&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="k">return</span> <span class="n">value</span>
 
 
 <div class="viewcode-block" id="vissim_fhz">
 <a class="viewcode-back" href="../../../pages/api/vissim2gmns.func_lib.vissim_fhz.html#vissim2gmns.func_lib.vissim_fhz">[docs]</a>
-<span class="nd">@func_running_time</span>
-<span class="k">def</span><span class="w"> </span><span class="nf">vissim_fhz</span><span class="p">(</span><span class="n">path_vissim_fhz</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
+<span class="k">def</span> <span class="nf">vissim_fhz</span><span class="p">(</span><span class="n">path_vissim_fhz</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">output_dir</span><span class="p">:</span> <span class="nb">str</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">:</span>
 <span class="w">    </span><span class="sd">&quot;&quot;&quot;Convert vissim fhz file to pandas dataframe.</span>
 
 <span class="sd">    Args:</span>
 <span class="sd">        path_vissim_fhz (str): the path to the vissim fhz file.</span>
+<span class="sd">        output_dir (str): the directory to save the output file. Defaults to &quot;&quot;.</span>
 
 <span class="sd">    Example:</span>
 <span class="sd">        &gt;&gt;&gt; import vissim2gmns as vg</span>
 <span class="sd">        &gt;&gt;&gt; path_vissim_fhz = &quot;./vissim_data/xl_002_001.fhz&quot;</span>
-<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz)</span>
-<span class="sd">        &gt;&gt;&gt; df_fhz.to_csv(&quot;vissim_fhz.csv&quot;, index=False)</span>
+<span class="sd">        &gt;&gt;&gt; output_dir = &quot;./output&quot;</span>
+<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz, output_dir=output_dir)  # get the fhz data and save to csv file in the output_dir.</span>
+<span class="sd">        &gt;&gt;&gt; df_fhz = vg.vissim_fhz(path_vissim_fhz)  # get the fhz data as a pandas dataframe without saving to file.</span>
 
 <span class="sd">    Returns:</span>
 <span class="sd">        pd.DataFrame: converted pandas dataframe.</span>
@@ -115,8 +132,11 @@
     <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path_vissim_fhz</span><span class="p">,</span> <span class="s1">&#39;rb&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
         <span class="n">df_fhz</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
 
+    <span class="c1"># Retrieve the VISSIM running date from a specific row.</span>
     <span class="n">fhz_date</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_fhz</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">5</span><span class="p">,</span> <span class="p">:])</span>
     <span class="n">start_fhz</span> <span class="o">=</span> <span class="nb">next</span><span class="p">((</span><span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">df_fhz</span><span class="p">))</span> <span class="k">if</span> <span class="nb">str</span><span class="p">(</span><span class="n">df_fhz</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])[</span><span class="mi">11</span><span class="p">:</span><span class="mi">15</span><span class="p">]</span> <span class="o">==</span> <span class="s2">&quot;Time&quot;</span><span class="p">),</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># remove \\r and \\n, \n characters from staring values</span>
+    <span class="n">fhz_date</span> <span class="o">=</span> <span class="n">remove_stripe_values</span><span class="p">(</span><span class="n">fhz_date</span><span class="p">)</span>
 
     <span class="n">vissim_fhz_data</span> <span class="o">=</span> <span class="n">df_fhz</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">start_fhz</span><span class="p">:]</span>  <span class="c1"># fhz file starts from row 8</span>
     <span class="n">fhz_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="nb">str</span><span class="p">(</span><span class="n">jj</span><span class="p">)</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;;&#39;</span><span class="p">)</span> <span class="k">for</span> <span class="n">jj</span> <span class="ow">in</span> <span class="n">vissim_fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]])</span>
@@ -126,12 +146,31 @@
     <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">])):</span>
         <span class="n">fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;&#39;&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span>
 
-    <span class="n">fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="n">fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">float</span><span class="p">)</span>
-    <span class="n">fhz_data</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">fhz_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span>
-        <span class="s2">&quot;Date:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">fhz_data</span><span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+    <span class="c1"># strip values for the whole table</span>
+    <span class="n">fhz_data</span> <span class="o">=</span> <span class="n">fhz_data</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">str_strip</span><span class="p">)</span>
+
+    <span class="c1"># Convert the first (time offset) column to numeric safely.</span>
+    <span class="n">time_col</span> <span class="o">=</span> <span class="n">fhz_data</span><span class="o">.</span><span class="n">columns</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">fhz_data</span><span class="p">[</span><span class="n">time_col</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">fhz_data</span><span class="p">[</span><span class="n">time_col</span><span class="p">],</span> <span class="n">errors</span><span class="o">=</span><span class="s2">&quot;coerce&quot;</span><span class="p">)</span>
+
+    <span class="c1"># add datetime</span>
+    <span class="n">fhz_data</span><span class="p">[</span><span class="s2">&quot;datetime&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span>
+        <span class="n">fhz_date</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Name&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;Date:&quot;</span><span class="p">)[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">lstrip</span><span class="p">())</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_timedelta</span><span class="p">(</span><span class="n">fhz_data</span><span class="p">[</span><span class="n">time_col</span><span class="p">],</span> <span class="n">unit</span><span class="o">=</span><span class="s2">&quot;s&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Save to csv file if output_dir is provided</span>
+    <span class="k">if</span> <span class="n">output_dir</span><span class="p">:</span>
+        <span class="n">output_fhz_csv</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">fhz_data</span><span class="p">)</span>
+        <span class="n">output_fhz_csv</span><span class="o">.</span><span class="n">to_csv</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">Path</span><span class="p">(</span><span class="n">path_vissim_fhz</span><span class="p">)</span><span class="o">.</span><span class="n">stem</span><span class="si">}</span><span class="s2">_fhz.csv&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+        <span class="n">logger</span><span class="o">.</span><span class="n">info</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Successfully save fhz file to csv: </span><span class="si">{</span><span class="n">output_dir</span><span class="si">}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
 
     <span class="k">return</span> <span class="n">fhz_data</span></div>
 
+
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
+    <span class="n">path_vissim_fhz</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\xyluo25\anaconda3_workspace\001_GitHub\vissim2gmns\datasets\aveiro_port_net\Aveiro_Port_Train_Network_25_03_2026_001.fhz&quot;</span>
+    <span class="n">output_dir</span> <span class="o">=</span> <span class="s2">&quot;./&quot;</span>
+    <span class="n">df_fhz</span> <span class="o">=</span> <span class="n">vissim_fhz</span><span class="p">(</span><span class="n">path_vissim_fhz</span><span class="p">,</span> <span class="n">output_dir</span><span class="o">=</span><span class="n">output_dir</span><span class="p">)</span>
 </pre></div>
 
            </div>
@@ -141,7 +180,7 @@
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2022 - 2025 Xiangyong Luo.</p>
+    <p>&#169; Copyright 2022 - 2026 Xiangyong Luo.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
