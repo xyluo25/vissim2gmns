@@ -325,7 +325,7 @@ def vissim_inpx(path_vissim_inpx: str,
         # convert LineString to WKT format
         # link_data["geom"] = LineString(points_lst)
         link_data["geom"] = LineString(points_lst)
-        link_data["geom_points"] = points_lst
+        # link_data["geom_points"] = points_lst
 
         # extract lane data and add link_id to each lane
         # lane index in leftmost to rightmost order with index starting from 1.
@@ -382,6 +382,16 @@ def vissim_inpx(path_vissim_inpx: str,
 
     # add link id column at the first column
     gdf_links.insert(0, "link_id", gdf_links["@no"])
+    # rename num_lanes to lanes to match with GMNS link standards
+    gdf_links.rename(columns={"num_lanes": "lanes"}, inplace=True)
+    # add lane_num from lane_index column in gdf_lanes to match with GMNS lane standards.
+    gdf_lanes.insert(1, "lane_num", gdf_lanes["lane_index"])
+    # rename @width to width in gdf_lanes
+    gdf_lanes.rename(columns={"@width": "width"}, inplace=True)
+    # order columns in gdf_lanes to have first columns as lane_id, link_id, lane_num, and then the rest of the columns
+    lane_cols = gdf_lanes.columns.tolist()
+    lane_cols = [col for col in lane_cols if col not in ["lane_id", "link_id", "lane_num", "width"]]
+    gdf_lanes = gdf_lanes[["lane_id", "link_id", "lane_num", "width"] + lane_cols]
 
     # save the results to csv and geojson files if output_dir is specified
     if output_dir:

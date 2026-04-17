@@ -9,3 +9,7 @@
 * [ ] add .mer: Data collection
 * [ ] add .lsa: Signal Changes protocol
 * [ ] add .knr: Node Evalution
+
+## Learning resources
+
+* [ ]  https://github.com/brianhuey/vissim
